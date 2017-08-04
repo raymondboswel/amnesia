@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Book } from '../../models/book';
+import { BookPage } from  '../book/book';
 
 /**
  * Generated class for the MyBooksPage page.
@@ -25,6 +26,12 @@ export class MyBooksPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MyBooksPage');
+  }
+
+  gotoBook(book) {
+    this.navCtrl.push(BookPage, {
+      book: book
+    });
   }
 
 }

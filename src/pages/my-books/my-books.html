@@ -16,7 +16,7 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let book of books">    
+    <ion-item *ngFor="let book of books" (click)="gotoBook(book)">    
       <h2>{{book.title}}</h2>
       <h3>{{book.author}}</h3>
       <p>{{book.questionsCompleted}} questions completed</p>

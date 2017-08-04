@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { Book } from '../../models/book';
 /**
  * Generated class for the BookPage page.
  *
@@ -14,8 +14,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'book.html',
 })
 export class BookPage {
-
+  book: Book = new Book("", "", "", 0);
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.book = navParams.get('book');
   }
 
   ionViewDidLoad() {
