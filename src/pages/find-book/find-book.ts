@@ -29,7 +29,7 @@ export class FindBookPage {
   }
 
   filterBooks(search: string) {
-    this.books = this.books.filter((book: Book) => book.title.toLowerCase().s;
+    this.books = this.books.filter((book: Book) => book.title.toLowerCase().indexOf(search) > -1);
   }
 
 }
