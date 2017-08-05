@@ -8,6 +8,9 @@ import { ListPage } from '../pages/list/list';
 import { MyBooksPage } from '../pages/my-books/my-books';
 import { FindBookPage} from '../pages/find-book/find-book';
 import { BookPage } from '../pages/book/book';
+import { QuestionsPage } from '../pages/questions/questions';
+import { NotesPage } from '../pages/notes/notes';
+import { OverviewPage } from '../pages/overview/overview';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -19,7 +22,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ListPage,
     MyBooksPage,
     FindBookPage,
-    BookPage
+    BookPage,
+    QuestionsPage,
+    NotesPage,
+    OverviewPage
   ],
   imports: [
     BrowserModule,
@@ -32,7 +38,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ListPage,
     MyBooksPage,
     FindBookPage,
-    BookPage
+    BookPage,
+    QuestionsPage,
+    NotesPage,
+    OverviewPage
   ],
   providers: [
     StatusBar,
