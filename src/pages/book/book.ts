@@ -18,15 +18,15 @@ import { OverviewPage } from '../overview/overview';
 })
 export class BookPage {
   book: Book = new Book("", "", "", 0);
-  tab1: any;
-  tab2: any;
-  tab3: any;
+  overview: any;
+  questions: any;
+  notes: any;
   
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.book = navParams.get('book');
-    this.tab1 = OverviewPage;
-    this.tab2 = QuestionsPage;
-    this.tab3 = NotesPage;
+    this.overview = OverviewPage;
+    this.questions = QuestionsPage;
+    this.notes = NotesPage;
   }
 
   ionViewDidLoad() {

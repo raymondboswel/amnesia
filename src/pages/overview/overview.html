@@ -7,12 +7,24 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>overview</ion-title>
+    <ion-title>Overview</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  <ion-card>
+    <ion-card-header>
+      <ion-icon *ngIf="!editSummary" (click)="editSummary=!editSummary" name="create" style="float: right"></ion-icon>
+      <ion-icon *ngIf="editSummary" name="checkmark" (click)="updateSummary()" style="float: right"></ion-icon>
+      <div style="display: inline">Summary</div>
+    </ion-card-header>
+    <ion-card-content>
+      <p *ngIf="!editSummary" >{{summary}}</p>
+      <ion-textarea *ngIf="editSummary" [(ngModel)]="summary"></ion-textarea>
+      <div>
+      </div>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

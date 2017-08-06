@@ -14,12 +14,18 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'overview.html',
 })
 export class OverviewPage {
-
+  editSummary: boolean = false;
+  summary: string = 'The British use the term "header", but the American term "head-shot" the English simply refuse to adopt.';
+  newSummary: string = '';
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad OverviewPage');
+  }
+
+  updateSummary() {
+    this.editSummary = false;
   }
 
 }
