@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Question } from '../../models/question';
+import { Answer } from '../../models/answer';
 
 /**
  * Generated class for the QuestionsPage page.
@@ -14,8 +16,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'questions.html',
 })
 export class QuestionsPage {
-
+  questions: Array<Question> = [];
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    let q1: Question = new Question();
+    let a1: Answer = new Answer();
+    a1.text = "as long as a piece of rope";
+    q1.answer = a1; 
+    q1.text = "How long is a piece of string";
+    this.questions.push(q1);
   }
 
   ionViewDidLoad() {

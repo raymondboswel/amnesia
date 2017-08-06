@@ -14,5 +14,16 @@
 
 
 <ion-content padding>
+  <ion-card *ngFor="let question of questions"> 
+    <ion-card-header>
+      Chapter 1 #1
+    </ion-card-header>
+    <ion-card-content>
+      <div>{{question.text}}</div>
+      <a *ngIf="!question.showAnswer" (click)="question.showAnswer=true">View answer</a>
+      <a *ngIf="question.showAnswer" (click)="question.showAnswer=false">Hide answer</a>
+      <div *ngIf="question.showAnswer">{{question.answer.text}}</div>
+    </ion-card-content>
+  </ion-card>
 
 </ion-content>
