@@ -17,10 +17,11 @@ import { Answer } from '../../models/answer';
 })
 export class QuestionsPage {
   questions: Array<Question> = [];
+  editAnswer: boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     let q1: Question = new Question();
     let a1: Answer = new Answer();
-    a1.text = "as long as a piece of rope";
+    a1.text = "Huh?";
     q1.answer = a1; 
     q1.text = "How long is a piece of string";
     this.questions.push(q1);
@@ -28,6 +29,11 @@ export class QuestionsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad QuestionsPage');
+  }
+
+  updateAnswer() {
+    console.log("Pressed check button")
+    this.editAnswer = false;
   }
 
 }

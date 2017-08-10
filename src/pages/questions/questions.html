@@ -22,7 +22,16 @@
       <div>{{question.text}}</div>
       <a *ngIf="!question.showAnswer" (click)="question.showAnswer=true">View answer</a>
       <a *ngIf="question.showAnswer" (click)="question.showAnswer=false">Hide answer</a>
-      <div *ngIf="question.showAnswer">{{question.answer.text}}</div>
+      <div *ngIf="question.showAnswer">
+        <div style="text-align: right">
+          <ion-icon *ngIf="!editAnswer" (click)="editAnswer=!editAnswer" name="create" ></ion-icon>
+          <ion-icon *ngIf="editAnswer" name="checkmark" (click)="updateAnswer()" ></ion-icon>
+        </div>
+        <p *ngIf="!editAnswer" >{{question.answer.text}}</p>
+        <div>
+          <ion-textarea *ngIf="editAnswer" [(ngModel)]="question.answer.text"></ion-textarea>
+        </div>
+      </div>
     </ion-card-content>
   </ion-card>
 
