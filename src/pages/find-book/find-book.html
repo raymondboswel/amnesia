@@ -11,11 +11,11 @@
     </button>
     <ion-title>find-book</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
+  <button ion-button style="float: right" (click)="addNewBook()">Add new book</button>
   <ion-searchbar [(ngModel)]="search" (ionInput)="filterBooks($event)"></ion-searchbar>
   <ion-list>
     <ion-item *ngFor="let book of filteredBooks" class="item-button-right">
