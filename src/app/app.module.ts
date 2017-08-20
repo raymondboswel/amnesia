@@ -14,10 +14,15 @@ import { QuestionsPage } from '../pages/questions/questions';
 import { NotesPage } from '../pages/notes/notes';
 import { OverviewPage } from '../pages/overview/overview';
 import { NewBookPage } from '../pages/new-book/new-book';
+import { LoginPage } from '../pages/login/login';
+import { RegistrationPage } from '../pages/registration/registration';
+
 import { BookService } from '../services/book.service';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { AuthService } from '../providers/auth-service/auth-service';
+import { RegistrationPageModule } from '../pages/registration/registration.module'
 
 @NgModule({
   declarations: [
@@ -30,11 +35,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     QuestionsPage,
     NotesPage,
     OverviewPage,
-    NewBookPage
+    NewBookPage,
+    LoginPage,    
   ],
   imports: [
     HttpModule,
     BrowserModule,
+    RegistrationPageModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -48,13 +55,16 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     QuestionsPage,
     NotesPage,
     OverviewPage,
-    NewBookPage
+    NewBookPage,
+    LoginPage,
+    RegistrationPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     BookService,    
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AuthService
   ]
 })
 export class AppModule {}
