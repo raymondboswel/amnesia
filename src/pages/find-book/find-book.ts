@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, Nav } from 'ionic-angular';
 import { Book } from '../../models/book';
 import { NewBookPage } from '../new-book/new-book';
 import { BookService } from '../../services/book.service';
+import { AuthService } from '../../providers/auth-service/auth-service';
 
 /**
  * Generated class for the FindBookPage page.
@@ -19,24 +20,32 @@ import { BookService } from '../../services/book.service';
 export class FindBookPage {
   @ViewChild(Nav) nav: Nav;
   search = '';
+  myBooks: Array<Book>;
   books: Array<Book> = [];
   filteredBooks: Array<Book> = [];
-  constructor(public navCtrl: NavController, public navParams: NavParams, private bookService: BookService) {
-    let book1 = new Book("Huckleberry Finn", "", "Mark Twain", 5);
-    let book2 = new Book("A short history of nearly everything", "", "Bill Bryson", 7);
-    let book3 = new Book("The art of learning", "", "Josh Waitzkin", 10);
-    book1.inMyBooks = true;
-    this.books = [book1, book2, book3];
+  constructor(public navCtrl: NavController, public navParams: NavParams, private bookService: BookService, private authService: AuthService) {
     
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FindBookPage');
-    this.bookService.getTop10Books().subscribe(res => {
-      console.log(res);
-      this.books = res;
-      console.log(this.books);
-      this.filteredBooks = this.books;
+    
+    this.bookService.getMyBooks(this.authService.currentUser).subscribe(res => {
+      this.myBooks = res;
+      console.log(this.myBooks);
+      this.bookService.getTop10Books().subscribe(res => {                
+        this.books = res.map(b => {
+          if (this.myBooks.find(myBook => myBook.id == b.id)) {
+            b.inMyBooks = true;
+            console.log(b);
+            return b;
+          } else {
+            console.log(b);
+            return b;
+          }          
+        });
+        console.log(this.books);        
+      });
     });
   }
 
@@ -44,7 +53,6 @@ export class FindBookPage {
     console.log(this.search);
     this.bookService.searchBooks(this.search).subscribe(res => {
       this.books = res;
-      this.filteredBooks = res;
     });
     // if (this.search.length > 0) {
     //   this.filteredBooks = this.books.filter((book: Book) => book.title.toLowerCase().indexOf(this.search.toLowerCase()) > -1);
@@ -55,6 +63,32 @@ export class FindBookPage {
 
   addNewBook() {
     this.navCtrl.push(NewBookPage);
+  }
+
+  addToMyBooks(book: Book) {
+    this.bookService.addToMyBooks(book, this.authService.currentUser).subscribe(res => {
+      this.books = this.books.map(b => {
+        if (b.id == book.id) {
+          b.inMyBooks = true;
+          return b;
+        } else {
+          return b;
+        }
+      })
+    });  
+  }
+
+    removeFromMyBooks(book: Book) {
+    this.bookService.removeFromMyBooks(book, this.authService.currentUser).subscribe(res => {
+      this.books.map(b => {
+        if (b.id == book.id) {
+          b.inMyBooks = false;
+          return b;
+        } else {
+          return b;
+        }
+      })
+    });  
   }
 
 }

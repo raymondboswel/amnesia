@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Book } from '../../models/book';
 import { BookPage } from  '../book/book';
-
+import { BookService } from '../../services/book.service';
+import { AuthService } from '../../providers/auth-service/auth-service';
 /**
  * Generated class for the MyBooksPage page.
  *
@@ -17,15 +18,15 @@ import { BookPage } from  '../book/book';
 })
 export class MyBooksPage {
   books: Array<Book> = [];
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    let book1 = new Book("Huckleberry Finn", "", "Mark Twain", 5); 
-    let book2 = new Book("A short history of nearly everything", "", "Bill Bryson", 7);
-    let book3 = new Book("The art of learning", "", "Josh Waitzkin", 10);
-    this.books = [book1, book2, book3];
+  constructor(private authService: AuthService, public navCtrl: NavController, public navParams: NavParams, private bookService: BookService) {
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MyBooksPage');
+    this.bookService.getMyBooks(this.authService.currentUser).subscribe(res => {
+      this.books = res;
+    })
   }
 
   gotoBook(book) {

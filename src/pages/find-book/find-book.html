@@ -18,13 +18,13 @@
   <button ion-button style="float: right" (click)="addNewBook()">Add new book</button>
   <ion-searchbar [(ngModel)]="search" (ionInput)="filterBooks($event)"></ion-searchbar>
   <ion-list>
-    <ion-item *ngFor="let book of filteredBooks" class="item-button-right">
+    <ion-item *ngFor="let book of books" class="item-button-right">
       <ion-label>
         <h2>{{book.title}}</h2>
         <h3>{{book.author}}</h3>
       </ion-label>
-      <ion-icon *ngIf="!book.inMyBooks" color="primary" item-right name="add-circle"></ion-icon>
-      <ion-icon *ngIf="book.inMyBooks" color="secondary" item-right name="remove-circle"></ion-icon>
+      <ion-icon *ngIf="!book.inMyBooks" color="primary" item-right (click)="addToMyBooks(book)" name="add-circle"></ion-icon>
+      <ion-icon *ngIf="book.inMyBooks" color="secondary" item-right (click)="removeFromMyBooks(book)" name="remove-circle"></ion-icon>
     </ion-item>
   </ion-list>
 </ion-content>

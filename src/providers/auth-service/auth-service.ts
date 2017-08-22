@@ -1,17 +1,9 @@
 import { Injectable } from '@angular/core';
 import {Http, RequestOptions, Headers} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
+import { User } from '../../models/user';
 import 'rxjs/add/operator/map';
- 
-export class User {
-  name: string;
-  email: string;
- 
-  constructor(name: string, email: string) {
-    this.name = name;
-    this.email = email;
-  }
-}
+
  
 @Injectable()
 export class AuthService {
@@ -28,7 +20,9 @@ export class AuthService {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');        
       let options = new RequestOptions({ headers: headers });
-      return this.http.post("http://localhost:4000/api/users/login", JSON.stringify({user: credentials}), options)
+      return this.http.post("http://localhost:4000/api/users/login", JSON.stringify({user: credentials}), options).map(res => {
+        return res.json();
+      });
     }
   }
  

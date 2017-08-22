@@ -10,7 +10,7 @@ import { HomePage } from '../../pages/home/home';
 })
 export class LoginPage {
   loading: Loading;
-  registerCredentials = { email: '', password: '' };
+  registerCredentials = { email: 'email@email.com', password: 'letmein' };
  
   constructor(private nav: NavController, private auth: AuthService, private alertCtrl: AlertController, private loadingCtrl: LoadingController) { }
  
@@ -21,7 +21,9 @@ export class LoginPage {
   public login() {
     this.showLoading()
     this.auth.login(this.registerCredentials).subscribe(user => {      
-        this.auth.currentUser = user;
+        this.auth.currentUser = {email: this.registerCredentials.email, name: "", jwt: user.jwt, id: user.user_id};
+
+        console.log(this.auth.currentUser);
         this.nav.setRoot(HomePage);
     },
       error => {
