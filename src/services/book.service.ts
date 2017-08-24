@@ -11,6 +11,7 @@ export class BookService {
     static get parameters() {
         return [[Http]];
     }
+    selectedBook: Book;
   
     constructor(private http:Http) {
          
@@ -44,6 +45,13 @@ export class BookService {
     addToMyBooks(book: Book, user: User) {
         let json = {user_book: {book_id: book.id, user_id: user.id}};
         let response = this.http.post("http://localhost:4000/api/user_books", json, this.requestOptions());
+        return response.map(res => {
+            return res.json();
+        });
+    }
+
+    updateBook(book: Book) {
+        let response  = this.http.put(`http://localhost:4000/api/books/${book.id}`, JSON.stringify({book: book}), this.requestOptions());
         return response.map(res => {
             return res.json();
         });

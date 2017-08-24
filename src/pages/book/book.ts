@@ -4,6 +4,7 @@ import { Book } from '../../models/book';
 import { QuestionsPage } from '../questions/questions';
 import { NotesPage } from '../notes/notes';
 import { OverviewPage } from '../overview/overview';
+import { BookService } from '../../services/book.service';
 /**
  * Generated class for the BookPage page.
  *
@@ -22,8 +23,9 @@ export class BookPage {
   questions: any;
   notes: any;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private bookService: BookService, public navCtrl: NavController, public navParams: NavParams) {
     this.book = navParams.get('book');
+    this.book = this.bookService.selectedBook;
     this.overview = OverviewPage;
     this.questions = QuestionsPage;
     this.notes = NotesPage;

@@ -23,6 +23,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthService } from '../providers/auth-service/auth-service';
 import { RegistrationPageModule } from '../pages/registration/registration.module'
+import { QuestionProvider } from '../providers/question/question';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { RegistrationPageModule } from '../pages/registration/registration.modul
     SplashScreen,
     BookService,    
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthService
+    AuthService,
+    QuestionProvider
   ]
 })
 export class AppModule {}

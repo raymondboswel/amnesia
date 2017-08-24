@@ -21,8 +21,8 @@
       <div style="display: inline">Summary</div>
     </ion-card-header>
     <ion-card-content>
-      <p *ngIf="!editSummary" >{{summary}}</p>
-      <ion-textarea *ngIf="editSummary" [(ngModel)]="summary"></ion-textarea>
+      <p *ngIf="!editSummary" >{{book.summary}}</p>
+      <ion-textarea *ngIf="editSummary" [(ngModel)]="book.summary"></ion-textarea>
     </ion-card-content>
   </ion-card>
 </ion-content>

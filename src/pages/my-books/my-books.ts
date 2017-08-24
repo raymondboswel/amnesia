@@ -30,6 +30,7 @@ export class MyBooksPage {
   }
 
   gotoBook(book) {
+    this.bookService.selectedBook = book;
     this.navCtrl.push(BookPage, {
       book: book
     });

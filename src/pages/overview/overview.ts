@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { Book } from '../../models/book';
+import { BookService } from '../../services/book.service';
 /**
  * Generated class for the OverviewPage page.
  *
@@ -15,9 +16,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class OverviewPage {
   editSummary: boolean = false;
-  summary: string = 'The British use the term "header", but the American term "head-shot" the English simply refuse to adopt.';
+  book: Book;  
   newSummary: string = '';
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private bookService: BookService) {
+    this.book = this.bookService.selectedBook;
   }
 
   ionViewDidLoad() {
@@ -26,6 +28,8 @@ export class OverviewPage {
 
   updateSummary() {
     this.editSummary = false;
+    this.bookService.updateBook(this.book).subscribe(res => {
+    });
   }
 
 }
