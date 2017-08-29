@@ -23,18 +23,13 @@ export class QuestionsPage {
   newQuestion: Question = new Question();
   editAnswer: boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, private bookService: BookService, private questionProvider: QuestionProvider) {
-    let q1: Question = new Question();
-    let a1: Answer = new Answer();
-    a1.text = "Huh?";
-    q1.answer = a1; 
-    q1.text = "How long is a piece of string";
-    this.questions.push(q1);
+    
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad QuestionsPage');
     this.questionProvider.getBookQuestions(this.bookService.selectedBook).subscribe(res => {
-      this.questions = res;
+      this.questions = res;      
     })
   }
 
