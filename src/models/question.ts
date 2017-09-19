@@ -1,7 +1,8 @@
 import { Answer } from './answer';
 export class Question {
+    id: string;
     text: string;
-    answer: Answer = new Answer();
+    answers: Array<Answer> = [];
     showAnswer: boolean = false;
     book_id: string = '';
 }

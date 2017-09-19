@@ -10,7 +10,7 @@ import { HomePage } from '../../pages/home/home';
 })
 export class LoginPage {
   loading: Loading;
-  registerCredentials = { email: 'email@email.com', password: 'letmein' };
+  registerCredentials = { email: 'raymondboswel@gmail.com', password: 'letmein' };
  
   constructor(private nav: NavController, private auth: AuthService, private alertCtrl: AlertController, private loadingCtrl: LoadingController) { }
  

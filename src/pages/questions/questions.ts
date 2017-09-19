@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Question } from '../../models/question';
 import { Answer } from '../../models/answer';
 import { QuestionProvider } from '../../providers/question/question';
+import { AnswerProvider } from '../../providers/answer/answer';
 import { BookService } from '../../services/book.service';
 
 /**
@@ -22,18 +23,34 @@ export class QuestionsPage {
   addQuestion: Boolean = false;
   newQuestion: Question = new Question();
   editAnswer: boolean = false;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private bookService: BookService, private questionProvider: QuestionProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, 
+              private bookService: BookService, 
+              private questionProvider: QuestionProvider,
+              private answerProvider: AnswerProvider) {
     
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad QuestionsPage');
     this.questionProvider.getBookQuestions(this.bookService.selectedBook).subscribe(res => {
-      this.questions = res;      
+      this.questions = res.map(q => {
+        if(q.answers.length == 0) {
+          q.answers.push(new Answer());          
+        };
+        return q;
+      });      
+      console.log(this.questions);
     })
   }
 
-  updateAnswer() {
+  updateAnswer(question: Question) {
+    if(question.answers[0].id) {
+      this.answerProvider.updateAnswer(question.answers[0]);
+    } else {
+      this.answerProvider.createAnswer(question).subscribe(answer => {
+        question.answers[0] = answer;
+      });
+    }
     console.log("Pressed check button")
     this.editAnswer = false;
   }

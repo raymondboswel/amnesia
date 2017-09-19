@@ -1,3 +1,4 @@
 export class Answer {
-    text: string;
+    id: string;
+    answer: string;
 }
