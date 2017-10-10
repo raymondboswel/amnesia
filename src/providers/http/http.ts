@@ -24,18 +24,23 @@ export class HttpProvider extends Http {
     console.log(request);
     console.log(this.envVariables);
     
-    if (!options) {
-      // let's make option object
-      options = {headers: new Headers()};
-    } 
     if (typeof request === 'string') { // meaning we have to add the token to the options, not in url
       // options.headers.set('Authorization', `Bearer ${token}`);
+      if (!options) {
+        // let's make option object
+        let headers = new Headers();
+        headers.set('Content-Type', 'application/json');
+        options = {headers: headers};
+      } 
+      request = this.envVariables.apiEndpoint + '/' + request;
     } else {
       request.url = this.envVariables.apiEndpoint + '/' + request.url;
       // we have to add the token to the url object
       // url.headers.set('Authorization', `Bearer ${token}`);
-    }
-    options.headers.append('Content-Type', 'application/json');               
+      request.headers.set('Content-Type', 'application/json');
+    }    
+    
+    console.log("Request");       
     console.log(request);
     return super.request(request, options).catch(this.catchAuthError(this));
   }
