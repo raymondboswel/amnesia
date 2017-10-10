@@ -1,3 +1,4 @@
+import { HttpProvider } from './../http/http';
 import { Injectable } from '@angular/core';
 import {Http, RequestOptions, Headers} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
@@ -9,7 +10,7 @@ import 'rxjs/add/operator/map';
 export class AuthService {
   currentUser: User;
 
-  constructor(private http: Http) {
+  constructor(private http: HttpProvider) {
 
   }
  
@@ -20,7 +21,7 @@ export class AuthService {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');        
       let options = new RequestOptions({ headers: headers });
-      return this.http.post("http://localhost:4000/api/users/login", JSON.stringify({user: credentials}), options).map(res => {
+      return this.http.post("api/users/login", JSON.stringify({user: credentials}), options).map(res => {
         return res.json();
       });
     }
@@ -34,7 +35,7 @@ export class AuthService {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');        
       let options = new RequestOptions({ headers: headers });
-      return this.http.post("http://localhost:4000/api/users", JSON.stringify({user: credentials}), options)
+      return this.http.post("api/users", JSON.stringify({user: credentials}), options)
     }
   }
  
