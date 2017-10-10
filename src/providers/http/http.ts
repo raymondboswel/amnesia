@@ -23,11 +23,12 @@ export class HttpProvider extends Http {
   request(request: string|Request, options?: RequestOptionsArgs): Observable<Response> {
     console.log(request);
     console.log(this.envVariables);
+    
+    if (!options) {
+      // let's make option object
+      options = {headers: new Headers()};
+    } 
     if (typeof request === 'string') { // meaning we have to add the token to the options, not in url
-      if (!options) {
-        // let's make option object
-        let options = {headers: new Headers()};
-      } 
       // options.headers.set('Authorization', `Bearer ${token}`);
     } else {
       request.url = this.envVariables.apiEndpoint + '/' + request.url;
