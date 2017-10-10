@@ -27,13 +27,14 @@ export class HttpProvider extends Http {
       if (!options) {
         // let's make option object
         let options = {headers: new Headers()};
-      }
+      } 
       // options.headers.set('Authorization', `Bearer ${token}`);
     } else {
       request.url = this.envVariables.apiEndpoint + '/' + request.url;
-    // we have to add the token to the url object
+      // we have to add the token to the url object
       // url.headers.set('Authorization', `Bearer ${token}`);
     }
+    options.headers.append('Content-Type', 'application/json');               
     console.log(request);
     return super.request(request, options).catch(this.catchAuthError(this));
   }

@@ -1,3 +1,4 @@
+import { HttpProvider } from './../http/http';
 import { Injectable, Inject } from '@angular/core';
 import {Http, RequestOptions, Headers} from '@angular/http';
 import { Answer } from '../../models/answer';
@@ -15,26 +16,19 @@ import { EnvVariables } from '../../app/environment-variables/environment-variab
 @Injectable()
 export class AnswerProvider {
 
-  constructor(public http: Http, @Inject(EnvVariables) public envVariables) {
-    console.log('Hello AnswerProvider Provider');
+  constructor(public http: HttpProvider, @Inject(EnvVariables) public envVariables) {
+    
   }
 
   createAnswer(question: Question): Observable<Answer> {
 
-    return this.http.post(`${this.envVariables.apiEndpoint}/api/questions/${question.id}/answers`, JSON.stringify({answer: question.answers[0]}), this.requestOptions()).map(res => {
+    return this.http.post(`api/questions/${question.id}/answers`, JSON.stringify({answer: question.answers[0]})).map(res => {
       return res.json().data;
     });
   }
 
   updateAnswer(answer: Answer) {
 
-  }
-
-  requestOptions(): RequestOptions {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');        
-    let options = new RequestOptions({ headers: headers });
-    return options;
   }
 
 }

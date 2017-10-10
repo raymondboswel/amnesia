@@ -18,10 +18,7 @@ export class AuthService {
     if (credentials.email === null || credentials.password === null) {
       return Observable.throw("Please insert credentials");
     } else {
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');        
-      let options = new RequestOptions({ headers: headers });
-      return this.http.post("api/users/login", JSON.stringify({user: credentials}), options).map(res => {
+      return this.http.post("api/users/login", JSON.stringify({user: credentials})).map(res => {
         return res.json();
       });
     }
@@ -32,10 +29,7 @@ export class AuthService {
       return Observable.throw("Please insert credentials");
     } else {
       // At this point store the credentials to your backend!
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');        
-      let options = new RequestOptions({ headers: headers });
-      return this.http.post("api/users", JSON.stringify({user: credentials}), options)
+      return this.http.post("api/users", JSON.stringify({user: credentials}))
     }
   }
  

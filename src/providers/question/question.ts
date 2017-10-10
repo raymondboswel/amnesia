@@ -1,3 +1,4 @@
+import { HttpProvider } from './../http/http';
 import { Injectable } from '@angular/core';
 import {Http, RequestOptions, Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -13,29 +14,19 @@ import { Question } from '../../models/question';
 @Injectable()
 export class QuestionProvider {
 
-  constructor(public http: Http) {
+  constructor(public http: HttpProvider) {
     console.log('Hello QuestionProvider Provider');
   };
 
   addNewQuestion(question): Observable<any> {
-    return this.http.post("http://localhost:4000/api/questions", JSON.stringify({question: question}), this.requestOptions()).map(res => {
+    return this.http.post("api/questions", JSON.stringify({question: question})).map(res => {
       return res.json();
     });
   }
 
   getBookQuestions(book): Observable<Array<Question>> {
-    return this.http.get(`http://localhost:4000/api/questions?book_id=${book.id}`, this.requestOptions()).map(res => {
+    return this.http.get(`api/questions?book_id=${book.id}`).map(res => {
       return res.json().data;
     });
   }
-
-  requestOptions(): RequestOptions {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');        
-    let options = new RequestOptions({ headers: headers });
-    return options;
-  }
-
-
-
 }
