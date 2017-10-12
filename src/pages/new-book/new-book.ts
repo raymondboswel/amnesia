@@ -1,3 +1,4 @@
+import { AuthorAutocompleteService } from './author-autocomplete.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
@@ -21,7 +22,11 @@ export class NewBookPage {
   addAuthor: boolean = false;
   authors: Array<Author> = [];
 
-  constructor(private bookService: BookService, public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder ) {
+  constructor(private bookService: BookService, 
+              public navCtrl: NavController, 
+              public navParams: NavParams, 
+              public formBuilder: FormBuilder,
+              public authorAutocompleteService: AuthorAutocompleteService ) {
     this.bookForm = this.formBuilder.group({
       title: ['', Validators.required],
       subtitle: [''],
@@ -39,6 +44,10 @@ export class NewBookPage {
     this.bookService.createBook(title, subtitle).subscribe(res => {
       this.navCtrl.pop();
     });
+  }
+
+  appendAuthor() {
+    
   }
 
   ionViewDidLoad() {

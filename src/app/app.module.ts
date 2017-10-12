@@ -36,6 +36,8 @@ import { AnswerProvider } from '../providers/answer/answer';
 import { EnvironmentsModule } from './environment-variables/environment-variables.module';
 import { HttpProvider } from '../providers/http/http';
 
+import { AutoCompleteModule } from 'ionic2-auto-complete';
+
 @NgModule({
   declarations: [
     MyApp,
