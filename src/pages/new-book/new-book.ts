@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { BookService } from '../../services/book.service';
+import { Author } from '../../models/author';
 
 /**
  * Generated class for the NewBookPage page.
@@ -16,7 +17,9 @@ import { BookService } from '../../services/book.service';
   templateUrl: 'new-book.html',
 })
 export class NewBookPage {
-  private bookForm : FormGroup;
+  bookForm : FormGroup;
+  addAuthor: boolean = false;
+  authors: Array<Author> = [];
 
   constructor(private bookService: BookService, public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder ) {
     this.bookForm = this.formBuilder.group({
@@ -25,8 +28,11 @@ export class NewBookPage {
     });
   }
 
+  toggleFields() {
+    this.addAuthor = !this.addAuthor;
+  }
 
-  logForm(){
+  addBook(){
     console.log(this.bookForm.value)
     let title = this.bookForm.controls['title'].value;
     let subtitle = this.bookForm.controls['subtitle'].value;

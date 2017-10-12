@@ -14,7 +14,7 @@
 
 
 <ion-content padding>
-    <form [formGroup]="bookForm" (ngSubmit)="logForm()">
+    <form [formGroup]="bookForm" (ngSubmit)="addBook()">
       <ion-item>
         <ion-label>Title</ion-label>
         <ion-input type="text" formControlName="title"></ion-input>
@@ -23,6 +23,30 @@
         <ion-label>Subtitle</ion-label>
         <ion-textarea formControlName="subtitle"></ion-textarea>
       </ion-item>
-      <button ion-button type="submit" [disabled]="!bookForm.valid">Submit</button>
+      <ion-card *ngIf="addAuthor">
+        <ion-searchbar [(ngModel)]="search" [ngModelOptions]="{standalone: true}" (ionInput)="findAuthor($event)"></ion-searchbar>
+        <ion-item>
+          <ion-label>Name</ion-label>
+          <ion-input type="text" formControlName="title"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Initials</ion-label>
+          <ion-input formControlName="subtitle"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Surname</ion-label>
+          <ion-input formControlName="subtitle"></ion-input>
+        </ion-item>
+        <div style="text-align: right; margin-top:10px">
+          <button ion-button (click)="toggleFields()">Cancel</button>
+          <button ion-button (click)="appendAuthor()">Add</button>
+        </div>
+      </ion-card>
+      <div style="text-align: center; ">
+        <button *ngIf="!addAuthor" ion-button (click)="toggleFields()">Add author</button>
+      </div>
+      <div>
+        <button ion-button style="float:right" type="submit" [disabled]="!bookForm.valid">Submit</button>
+      </div>
     </form>
 </ion-content>

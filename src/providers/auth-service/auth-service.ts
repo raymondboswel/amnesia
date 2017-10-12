@@ -1,6 +1,5 @@
 import { HttpProvider } from './../http/http';
 import { Injectable } from '@angular/core';
-import {Http, RequestOptions, Headers} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import { User } from '../../models/user';
 import 'rxjs/add/operator/map';
@@ -38,6 +37,8 @@ export class AuthService {
   }
  
   public logout() {
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("authToken");
     this.currentUser = null;
   }
 

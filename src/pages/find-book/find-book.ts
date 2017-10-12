@@ -54,11 +54,6 @@ export class FindBookPage {
     this.bookService.searchBooks(this.search).subscribe(res => {
       this.books = res;
     });
-    // if (this.search.length > 0) {
-    //   this.filteredBooks = this.books.filter((book: Book) => book.title.toLowerCase().indexOf(this.search.toLowerCase()) > -1);
-    // } else {
-    //   this.filteredBooks = this.books;
-    // }
   }
 
   addNewBook() {

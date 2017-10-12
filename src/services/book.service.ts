@@ -8,10 +8,7 @@ import 'rxjs/add/operator/map';
 import { AuthService } from '../providers/auth-service/auth-service';
   
 @Injectable()
-export class BookService {  
-    static get parameters() {
-        return [[Http]];
-    }
+export class BookService {     
     selectedBook: Book;
   
     constructor(private http: HttpProvider) {
