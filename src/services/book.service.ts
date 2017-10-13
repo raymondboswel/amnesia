@@ -20,8 +20,8 @@ export class BookService {
         return response.map(res => res.json().data);                
     }
 
-    createBook(title: string, subtitle: string) {        
-        let response = this.http.post("api/books", JSON.stringify({"book": {"title": title, "subtitle": subtitle}}));
+    createBook(book: Book) {        
+        let response = this.http.post("api/books", JSON.stringify({"book": book}));
         return response.map(res => res.json());
     }
 

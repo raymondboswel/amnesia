@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { BookService } from '../../services/book.service';
 import { Author } from '../../models/author';
+import { Book } from '../../models/book';
 
 /**
  * Generated class for the NewBookPage page.
@@ -19,8 +20,10 @@ import { Author } from '../../models/author';
 })
 export class NewBookPage {
   bookForm : FormGroup;
+  book: Book;
   addAuthor: boolean = false;
   authors: Array<Author> = [];
+  newAuthor: Author = new Author();
 
   constructor(private bookService: BookService, 
               public navCtrl: NavController, 
@@ -41,13 +44,16 @@ export class NewBookPage {
     console.log(this.bookForm.value)
     let title = this.bookForm.controls['title'].value;
     let subtitle = this.bookForm.controls['subtitle'].value;
+    let book: Book = new Book(title, subtitle, this.authors, 0);
     this.bookService.createBook(title, subtitle).subscribe(res => {
       this.navCtrl.pop();
     });
   }
 
-  appendAuthor() {
-    
+  appendAuthor(author) {
+    console.log(author);
+    this.authors.push(author);
+    this.addAuthor = false;
   }
 
   ionViewDidLoad() {

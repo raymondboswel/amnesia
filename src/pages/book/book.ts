@@ -18,7 +18,7 @@ import { BookService } from '../../services/book.service';
   templateUrl: 'book.html',
 })
 export class BookPage {
-  book: Book = new Book("", "", "", 0);
+  book: Book = new Book("", "", [], 0);
   overview: any;
   questions: any;
   notes: any;

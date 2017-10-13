@@ -21,25 +21,38 @@
       </ion-item>
       <ion-item>
         <ion-label>Subtitle</ion-label>
-        <ion-textarea formControlName="subtitle"></ion-textarea>
+        <ion-input formControlName="subtitle"></ion-input>
       </ion-item>
+
+      <ion-list *ngIf="authors.length > 0">
+          <ion-list-header>
+              Authors
+            </ion-list-header>
+          <ion-item *ngFor="let author of authors">
+            {{author.name + " " + author.surname}}            
+          </ion-item>
+        </ion-list>
+
       <ion-card *ngIf="addAuthor">
-        <ion-auto-complete [dataProvider]="authorAutocompleteService"></ion-auto-complete>
+        <ng-template #surnameAndName let-attrs="attrs">
+          <span [innerHTML]="attrs.data.surname + ', ' + attrs.data.name "></span>
+        </ng-template>
+        <ion-auto-complete (itemSelected)="appendAuthor($event)" [template]="surnameAndName" [dataProvider]="authorAutocompleteService"></ion-auto-complete>
         <ion-item>
           <ion-label>Name</ion-label>
-          <ion-input type="text" formControlName="title"></ion-input>
+          <ion-input [(ngModel)]="newAuthor.name" type="text" formControlName="title"></ion-input>
         </ion-item>
-        <ion-item>
+        <ion-item class="hidden">
           <ion-label>Initials</ion-label>
           <ion-input formControlName="subtitle"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>Surname</ion-label>
-          <ion-input formControlName="subtitle"></ion-input>
+          <ion-input [(ngModel)]="newAuthor.surname" formControlName="subtitle"></ion-input>
         </ion-item>
         <div style="text-align: right; margin-top:10px">
           <button ion-button (click)="toggleFields()">Cancel</button>
-          <button ion-button (click)="appendAuthor()">Add</button>
+          <button ion-button (click)="appendAuthor(newAuthor)">Add</button>
         </div>
       </ion-card>
       <div style="text-align: center; ">
