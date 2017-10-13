@@ -40,15 +40,15 @@
         <ion-auto-complete (itemSelected)="appendAuthor($event)" [template]="surnameAndName" [dataProvider]="authorAutocompleteService"></ion-auto-complete>
         <ion-item>
           <ion-label>Name</ion-label>
-          <ion-input [(ngModel)]="newAuthor.name" type="text" formControlName="title"></ion-input>
+          <ion-input [(ngModel)]="newAuthor.name" [ngModelOptions]="{standalone: true}" type="text"></ion-input>
         </ion-item>
         <ion-item class="hidden">
           <ion-label>Initials</ion-label>
-          <ion-input formControlName="subtitle"></ion-input>
+          <ion-input></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>Surname</ion-label>
-          <ion-input [(ngModel)]="newAuthor.surname" formControlName="subtitle"></ion-input>
+          <ion-input [(ngModel)]="newAuthor.surname" [ngModelOptions]="{standalone: true}"></ion-input>
         </ion-item>
         <div style="text-align: right; margin-top:10px">
           <button ion-button (click)="toggleFields()">Cancel</button>
