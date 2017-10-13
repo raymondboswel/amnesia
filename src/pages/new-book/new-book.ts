@@ -45,7 +45,7 @@ export class NewBookPage {
     let title = this.bookForm.controls['title'].value;
     let subtitle = this.bookForm.controls['subtitle'].value;
     let book: Book = new Book(title, subtitle, this.authors, 0);
-    this.bookService.createBook(title, subtitle).subscribe(res => {
+    this.bookService.createBook(book).subscribe(res => {
       this.navCtrl.pop();
     });
   }
