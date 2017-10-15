@@ -12,6 +12,10 @@ import { AuthService } from '../../providers/auth-service/auth-service';
  * on Ionic pages and navigation.
  */
 
+ class BookView extends Book {
+   authorsString: string;
+ }
+
 @IonicPage()
 @Component({
   selector: 'page-find-book',
@@ -20,9 +24,9 @@ import { AuthService } from '../../providers/auth-service/auth-service';
 export class FindBookPage {
   @ViewChild(Nav) nav: Nav;
   search = '';
-  myBooks: Array<Book>;
-  books: Array<Book> = [];
-  filteredBooks: Array<Book> = [];
+  myBooks: Array<BookView>;
+  books: Array<BookView> = [];
+  filteredBooks: Array<BookView> = [];
   constructor(public navCtrl: NavController, public navParams: NavParams, private bookService: BookService, private authService: AuthService) {
     
   }
@@ -30,19 +34,23 @@ export class FindBookPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad FindBookPage');
     
-    this.bookService.getMyBooks(this.authService.currentUser).subscribe(res => {
+    this.bookService.getMyBooks(this.authService.currentUser).subscribe((res: Array<BookView>) => {
       this.myBooks = res;
       console.log(this.myBooks);
-      this.bookService.getTop10Books().subscribe(res => {                
+      this.bookService.getTop10Books().subscribe((res: Array<BookView>) => {                
         this.books = res.map(b => {
           if (this.myBooks.find(myBook => myBook.id == b.id)) {
             b.inMyBooks = true;
             console.log(b);
-            return b;
+            
+          } else {          
+          }; 
+          if (b.authors) {
+            b.authorsString = b.authors.reduce((res, author, i) => { return res +  author.surname + ", " + author.name[0] + "; "}, "");            
           } else {
-            console.log(b);
-            return b;
-          }          
+            b.authorsString = "";
+          }
+          return b;               
         });
         console.log(this.books);        
       });

@@ -21,7 +21,7 @@
     <ion-item *ngFor="let book of books" class="item-button-right">
       <ion-label>
         <h2>{{book.title}}</h2>
-        <h3>{{book.author}}</h3>
+        <h3>{{book.authorsString}}</h3>
       </ion-label>
       <ion-icon *ngIf="!book.inMyBooks" color="primary" item-right (click)="addToMyBooks(book)" name="add-circle"></ion-icon>
       <ion-icon *ngIf="book.inMyBooks" color="secondary" item-right (click)="removeFromMyBooks(book)" name="remove-circle"></ion-icon>
