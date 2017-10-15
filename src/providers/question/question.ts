@@ -20,7 +20,7 @@ export class QuestionProvider {
 
   addNewQuestion(question): Observable<any> {
     return this.http.post("api/questions", JSON.stringify({question: question})).map(res => {
-      return res.json();
+      return res.json().data;
     });
   }
 

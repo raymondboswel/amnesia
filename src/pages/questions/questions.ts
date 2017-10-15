@@ -58,7 +58,9 @@ export class QuestionsPage {
   addNewQuestion() {
     this.newQuestion.book_id = this.bookService.selectedBook.id;
     this.questionProvider.addNewQuestion(this.newQuestion).subscribe(res => {
-      this.questions.push(this.newQuestion);
+      let answer = new Answer();
+      res.answers = [answer];
+      this.questions.push(res);
       this.newQuestion = new Question();
       this.addQuestion = false;
     });
