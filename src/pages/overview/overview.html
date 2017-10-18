@@ -25,4 +25,14 @@
       <ion-textarea *ngIf="editSummary" [(ngModel)]="book.summary"></ion-textarea>
     </ion-card-content>
   </ion-card>
+
+  <ion-toolbar>
+    <ion-title>Sections</ion-title>
+  </ion-toolbar>
+  <ion-list>
+    <p ion-item *ngFor="let section of sections">
+      {{ section.name }}
+    </p>  
+  </ion-list>
+
 </ion-content>

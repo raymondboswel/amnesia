@@ -1,10 +1,12 @@
 import { Author } from './author';
-export class  Book {
+import { Section } from './section';
+export class Book {
     id: string;
     authors: Array<Author> = [];
     title: string;
     subtitle: string;
     summary: string;
+    sections: Array<Section> = [];
     questionsCompleted: number = 0;
     inMyBooks: boolean = false;
     constructor(title: string, subtitle: string, authors: Array<Author>, questionsCompleted: number) {
