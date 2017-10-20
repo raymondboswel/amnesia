@@ -1,3 +1,5 @@
+import { SectionProvider } from './../../providers/section/section';
+import { Section } from './../../models/section';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Book } from '../../models/book';
@@ -16,9 +18,14 @@ import { BookService } from '../../services/book.service';
 })
 export class OverviewPage {
   editSummary: boolean = false;
+  addSection: boolean = false;
+  newSection: Section = new Section();
   book: Book;  
   newSummary: string = '';
-  constructor(public navCtrl: NavController, public navParams: NavParams, private bookService: BookService) {
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams, 
+              private bookService: BookService,
+              private sectionProvider: SectionProvider) {
     this.book = this.bookService.selectedBook;
   }
 
@@ -30,6 +37,14 @@ export class OverviewPage {
   updateSummary() {
     this.editSummary = false;
     this.bookService.updateBook(this.book).subscribe(res => {
+    });
+  }
+
+  addNewSection() {
+    this.sectionProvider.addSection(this.newSection, this.book).subscribe(section => {
+      this.book.sections.push(section);
+      this.newSection = new Section();
+      this.addSection = false;
     });
   }
 

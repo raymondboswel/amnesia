@@ -13,26 +13,39 @@
 </ion-header>
 
 
-<ion-content padding>
-  <ion-card>
-    <ion-card-header>
-      <ion-icon *ngIf="!editSummary" (click)="editSummary=!editSummary" name="create" style="float: right"></ion-icon>
-      <ion-icon *ngIf="editSummary" name="checkmark" (click)="updateSummary()" style="float: right"></ion-icon>
-      <div style="display: inline">Summary</div>
+<ion-content padding >
+  <div >
+    <ion-card>
+      <ion-card-header>
+        <ion-icon *ngIf="!editSummary" (click)="editSummary=!editSummary" name="create" style="float: right"></ion-icon>
+        <ion-icon *ngIf="editSummary" name="checkmark" (click)="updateSummary()" style="float: right"></ion-icon>
+        <div style="display: inline">Summary</div>
+      </ion-card-header>
+      <ion-card-content>
+        <p *ngIf="!editSummary" >{{book.summary}}</p>
+        <ion-textarea *ngIf="editSummary" [(ngModel)]="book.summary"></ion-textarea>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-toolbar>
+      <ion-title>Sections</ion-title>
+    </ion-toolbar>
+    <button *ngIf="!addSection" ion-button style="float: right" (click)="addSection=true">Add a section</button>
+    <ion-card *ngIf="addSection">
+      <ion-card-header>
+      Add a section
     </ion-card-header>
     <ion-card-content>
-      <p *ngIf="!editSummary" >{{book.summary}}</p>
-      <ion-textarea *ngIf="editSummary" [(ngModel)]="book.summary"></ion-textarea>
-    </ion-card-content>
+      <div>Section name</div>
+      <ion-input [(ngModel)]="newSection.name"></ion-input>
+      <button ion-button style="float: right" (click)="addNewSection()">Add</button>
+      <button ion-button style="float: right" (click)="addSection=false">Cancel</button>
+    </ion-card-content> 
   </ion-card>
-
-  <ion-toolbar>
-    <ion-title>Sections</ion-title>
-  </ion-toolbar>
-  <ion-list>
-    <p ion-item *ngFor="let section of sections">
-      {{ section.name }}
-    </p>  
-  </ion-list>
-
+    <ion-list>
+      <p ion-item *ngFor="let section of book.sections">
+        {{ section.name }}
+      </p>  
+    </ion-list>
+  </div>
 </ion-content>

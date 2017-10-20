@@ -37,6 +37,7 @@ import { EnvironmentsModule } from './environment-variables/environment-variable
 import { HttpProvider } from '../providers/http/http';
 
 import { AutoCompleteModule } from 'ionic2-auto-complete';
+import { SectionProvider } from '../providers/section/section';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { AutoCompleteModule } from 'ionic2-auto-complete';
     QuestionProvider,
     AnswerProvider,
     HttpProvider,
+    SectionProvider,
     
   ]
 })
