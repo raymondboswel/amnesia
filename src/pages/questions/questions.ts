@@ -1,3 +1,4 @@
+import { Book } from './../../models/book';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Question } from '../../models/question';
@@ -5,6 +6,7 @@ import { Answer } from '../../models/answer';
 import { QuestionProvider } from '../../providers/question/question';
 import { AnswerProvider } from '../../providers/answer/answer';
 import { BookService } from '../../services/book.service';
+import { Section } from '../../models/section';
 
 /**
  * Generated class for the QuestionsPage page.
@@ -19,7 +21,9 @@ import { BookService } from '../../services/book.service';
   templateUrl: 'questions.html',
 })
 export class QuestionsPage {
-  questions: Array<Question> = [];
+  book: Book;
+  allQuestions: Array<Question> = [];
+  sectionQuestions: Array<Array<Question>> = [];
   addQuestion: Boolean = false;
   newQuestion: Question = new Question();
   editAnswer: boolean = false;
@@ -27,19 +31,29 @@ export class QuestionsPage {
               private bookService: BookService, 
               private questionProvider: QuestionProvider,
               private answerProvider: AnswerProvider) {
-    
+    this.book = this.bookService.selectedBook;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad QuestionsPage');
     this.questionProvider.getBookQuestions(this.bookService.selectedBook).subscribe(res => {
-      this.questions = res.map(q => {
+      this.allQuestions = res.map(q => {
         if(q.answers.length == 0) {
           q.answers.push(new Answer());          
         };
         return q;
-      });      
-      console.log(this.questions);
+      });    
+      // this.sections = this.questions.
+      let section_names = this.allQuestions.reduce((res: Array<string>, q, i) => {
+        if (!res.some(r => r == q.section.name)) {
+          res.push(q.section.name);
+        };
+        return res;}, []);
+      section_names.forEach(name => {
+        let sectionQuestions = this.allQuestions.filter(q => q.section.name == name);
+        this.sectionQuestions.push(sectionQuestions);
+      })
+      console.log(this.allQuestions);
     })
   }
 
@@ -60,7 +74,7 @@ export class QuestionsPage {
     this.questionProvider.addNewQuestion(this.newQuestion).subscribe(res => {
       let answer = new Answer();
       res.answers = [answer];
-      this.questions.push(res);
+      this.allQuestions.push(res);
       this.newQuestion = new Question();
       this.addQuestion = false;
     });

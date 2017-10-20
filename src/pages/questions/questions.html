@@ -20,31 +20,41 @@
       Add a question
     </ion-card-header>
     <ion-card-content>
+      <div style="display: flex; align-items: center">
+        <p>Relevant section:</p>
+        <ion-select [(ngModel)]="newQuestion.section_id">
+          <ion-option *ngFor="let section of book.sections" [value]="section.id">
+            {{section.name}}
+          </ion-option>
+        </ion-select>
+      </div>
       <div>Question</div>
       <ion-textarea [(ngModel)]="newQuestion.text"></ion-textarea>
       <button ion-button style="float: right" (click)="addNewQuestion()">Add</button>
       <button ion-button style="float: right" (click)="addQuestion=false">Cancel</button>
     </ion-card-content> 
   </ion-card>
-  <ion-card *ngFor="let question of questions"> 
-    <ion-card-header>
-      Chapter 1 #1
-    </ion-card-header>
-    <ion-card-content>
-      <div>{{question.text}}</div>
-      <a *ngIf="!question.showAnswer" (click)="question.showAnswer=true">View answer</a>
-      <a *ngIf="question.showAnswer" (click)="question.showAnswer=false">Hide answer</a>
-      <div *ngIf="question.showAnswer">
-        <div style="text-align: right">
-          <ion-icon *ngIf="!editAnswer" (click)="editAnswer=!editAnswer" name="create" ></ion-icon>
-          <ion-icon *ngIf="editAnswer" name="checkmark" (click)="updateAnswer(question)" ></ion-icon>
+  <div *ngFor="let questions of sectionQuestions">
+    <ion-card *ngFor="let question of questions"> 
+      <ion-card-header>
+        {{question.section.name}}
+      </ion-card-header>
+      <ion-card-content>
+        <div>{{question.text}}</div>
+        <a *ngIf="!question.showAnswer" (click)="question.showAnswer=true">View answer</a>
+        <a *ngIf="question.showAnswer" (click)="question.showAnswer=false">Hide answer</a>
+        <div *ngIf="question.showAnswer">
+          <div style="text-align: right">
+            <ion-icon *ngIf="!editAnswer" (click)="editAnswer=!editAnswer" name="create" ></ion-icon>
+            <ion-icon *ngIf="editAnswer" name="checkmark" (click)="updateAnswer(question)" ></ion-icon>
+          </div>
+          <p *ngIf="!editAnswer" >{{question.answers[0]?.answer}}</p>
+          <div>
+            <ion-textarea *ngIf="editAnswer" [(ngModel)]="question.answers[0].answer"></ion-textarea>
+          </div>
         </div>
-        <p *ngIf="!editAnswer" >{{question.answers[0]?.answer}}</p>
-        <div>
-          <ion-textarea *ngIf="editAnswer" [(ngModel)]="question.answers[0].answer"></ion-textarea>
-        </div>
-      </div>
-    </ion-card-content>
-  </ion-card>
+      </ion-card-content>
+    </ion-card>
+  </div>
 
 </ion-content>
