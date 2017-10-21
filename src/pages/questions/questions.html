@@ -35,9 +35,9 @@
     </ion-card-content> 
   </ion-card>
   <div *ngFor="let questions of sectionQuestions">
-    <ion-card *ngFor="let question of questions"> 
+    <ion-card *ngFor="let question of questions; let i = index"> 
       <ion-card-header>
-        {{question.section.name}}
+        {{question.section.name}} #{{i + 1}}
       </ion-card-header>
       <ion-card-content>
         <div>{{question.text}}</div>
@@ -50,7 +50,7 @@
           </div>
           <p *ngIf="!editAnswer" >{{question.answers[0]?.answer}}</p>
           <div>
-            <ion-textarea *ngIf="editAnswer" [(ngModel)]="question.answers[0].answer"></ion-textarea>
+            <ion-textarea class="answer-textarea" *ngIf="editAnswer" [(ngModel)]="question.answers[0].answer"></ion-textarea>
           </div>
         </div>
       </ion-card-content>
