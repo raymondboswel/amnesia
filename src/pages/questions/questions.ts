@@ -1,5 +1,5 @@
 import { Book } from './../../models/book';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Question } from '../../models/question';
 import { Answer } from '../../models/answer';
@@ -20,7 +20,7 @@ import { Section } from '../../models/section';
   selector: 'page-questions',
   templateUrl: 'questions.html',
 })
-export class QuestionsPage {
+export class QuestionsPage implements OnInit{
   book: Book;
   allQuestions: Array<Question> = [];
   sectionQuestions: Array<Array<Question>> = [];
@@ -34,7 +34,7 @@ export class QuestionsPage {
     this.book = this.bookService.selectedBook;
   }
 
-  ionViewDidLoad() {
+  ngOnInit() {
     console.log('ionViewDidLoad QuestionsPage');
     this.questionProvider.getBookQuestions(this.bookService.selectedBook).subscribe(res => {
       this.allQuestions = res.map(q => {

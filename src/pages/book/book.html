@@ -14,9 +14,28 @@
 
 
 <ion-content padding>
-  <ion-tabs>
+  <!-- <ion-tabs>
     <ion-tab tabIcon="heart" [root]="overview"></ion-tab>
     <ion-tab tabIcon="help-circle" [root]="questions"></ion-tab>
     <ion-tab tabIcon="list-box" [root]="notes"></ion-tab>
-  </ion-tabs>
+  </ion-tabs> -->
+  <div padding>
+    <ion-segment [(ngModel)]="segment">
+      <ion-segment-button value="overview">
+        Overview
+      </ion-segment-button>
+      <ion-segment-button value="questions">
+        Questions
+      </ion-segment-button>
+      <ion-segment-button value="notes">
+        Notes
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+  
+  <div [ngSwitch]="segment">
+    <page-overview *ngSwitchCase="'overview'"></page-overview>
+    <page-questions *ngSwitchCase="'questions'"></page-questions>
+    <page-notes *ngSwitchCase="'notes'"></page-notes>
+  </div>
 </ion-content>

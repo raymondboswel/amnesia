@@ -9,5 +9,6 @@ import { NotesPage } from './notes';
   imports: [
     IonicPageModule.forChild(NotesPage),
   ],
+  exports: [NotesPage]
 })
 export class NotesPageModule {}

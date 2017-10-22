@@ -4,16 +4,9 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>Overview</ion-title>
-  </ion-navbar>
-
-</ion-header>
 
 
-<ion-content padding >
+
   <div >
     <ion-card>
       <ion-card-header>
@@ -23,29 +16,25 @@
       </ion-card-header>
       <ion-card-content>
         <p *ngIf="!editSummary" >{{book.summary}}</p>
-        <ion-textarea *ngIf="editSummary" [(ngModel)]="book.summary"></ion-textarea>
+        <ion-textarea *ngIf="editSummary" placeholder="Add a book summary" [(ngModel)]="book.summary"></ion-textarea>
       </ion-card-content>
     </ion-card>
 
-    <ion-toolbar>
-      <ion-title>Sections</ion-title>
-    </ion-toolbar>
-    <button *ngIf="!addSection" ion-button style="float: right" (click)="addSection=true">Add a section</button>
+    <div padding>
+      <H2 style="display: inline">Sections</H2>
+      <button *ngIf="!addSection" ion-button style="float: right" (click)="addSection=true">Add a section</button>
+    </div>
     <ion-card *ngIf="addSection">
-      <ion-card-header>
-      Add a section
-    </ion-card-header>
-    <ion-card-content>
-      <div>Section name</div>
-      <ion-input [(ngModel)]="newSection.name"></ion-input>
-      <button ion-button style="float: right" (click)="addNewSection()">Add</button>
-      <button ion-button style="float: right" (click)="addSection=false">Cancel</button>
-    </ion-card-content> 
-  </ion-card>
+
+      <ion-card-content>
+        <ion-input [(ngModel)]="newSection.name" placeholder="Section name"></ion-input>
+        <button ion-button style="float: right" (click)="addNewSection()">Add</button>
+        <button ion-button style="float: right" (click)="addSection=false">Cancel</button>
+      </ion-card-content> 
+    </ion-card>
     <ion-list>
       <p ion-item *ngFor="let section of book.sections">
         {{ section.name }}
       </p>  
     </ion-list>
   </div>
-</ion-content>

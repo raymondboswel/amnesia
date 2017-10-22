@@ -22,6 +22,7 @@ export class BookPage {
   overview: any;
   questions: any;
   notes: any;
+  segment: string = "overview";
   
   constructor(private bookService: BookService, public navCtrl: NavController, public navParams: NavParams) {
     this.book = navParams.get('book');

@@ -4,23 +4,14 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
 
-  <ion-toolbar>
-    <ion-title>Questions</ion-title>
-  </ion-toolbar>
-  
-</ion-header>
-
-
-<ion-content padding>
-  <button ion-button style="float: right" (click)="addQuestion=true">Add a question</button>
+<div>
+  <div style="text-align: center">
+    <button *ngIf="!addQuestion" ion-button style="" (click)="addQuestion=true">Add a question</button>
+  </div>
   <ion-card *ngIf="addQuestion">
-     <ion-card-header>
-      Add a question
-    </ion-card-header>
     <ion-card-content>
-      <div style="display: flex; align-items: center">
+      <div style="display: flex; align-items: center; justify-content: space-between">
         <p>Relevant section:</p>
         <ion-select [(ngModel)]="newQuestion.section_id">
           <ion-option *ngFor="let section of book.sections" [value]="section.id">
@@ -28,8 +19,7 @@
           </ion-option>
         </ion-select>
       </div>
-      <div>Question</div>
-      <ion-textarea [(ngModel)]="newQuestion.text"></ion-textarea>
+      <ion-textarea placeholder="Question" [(ngModel)]="newQuestion.text"></ion-textarea>
       <button ion-button style="float: right" (click)="addNewQuestion()">Add</button>
       <button ion-button style="float: right" (click)="addQuestion=false">Cancel</button>
     </ion-card-content> 
@@ -50,11 +40,11 @@
           </div>
           <p *ngIf="!editAnswer" >{{question.answers[0]?.answer}}</p>
           <div>
-            <ion-textarea class="answer-textarea" *ngIf="editAnswer" [(ngModel)]="question.answers[0].answer"></ion-textarea>
+            <ion-textarea class="answer-textarea" placeholder="Answer" *ngIf="editAnswer" [(ngModel)]="question.answers[0].answer"></ion-textarea>
           </div>
         </div>
       </ion-card-content>
     </ion-card>
   </div>
 
-</ion-content>
+</div>

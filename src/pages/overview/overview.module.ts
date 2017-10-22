@@ -9,5 +9,6 @@ import { OverviewPage } from './overview';
   imports: [
     IonicPageModule.forChild(OverviewPage),
   ],
+  exports: [OverviewPage]
 })
 export class OverviewPageModule {}
