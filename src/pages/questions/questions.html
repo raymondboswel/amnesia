@@ -19,7 +19,9 @@
           </ion-option>
         </ion-select>
       </div>
-      <ion-textarea placeholder="Question" [(ngModel)]="newQuestion.text"></ion-textarea>
+      <ion-item>
+        <ion-textarea placeholder="Question" [(ngModel)]="newQuestion.text"></ion-textarea>
+      </ion-item>
       <button ion-button style="float: right" (click)="addNewQuestion()">Add</button>
       <button ion-button style="float: right" (click)="addQuestion=false">Cancel</button>
     </ion-card-content> 
@@ -40,7 +42,9 @@
           </div>
           <p *ngIf="!editAnswer" >{{question.answers[0]?.answer}}</p>
           <div>
+          <ion-item>
             <ion-textarea class="answer-textarea" placeholder="Answer" *ngIf="editAnswer" [(ngModel)]="question.answers[0].answer"></ion-textarea>
+          </ion-item>
           </div>
         </div>
       </ion-card-content>
