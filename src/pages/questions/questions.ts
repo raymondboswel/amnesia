@@ -15,6 +15,17 @@ import { Section } from '../../models/section';
  * on Ionic pages and navigation.
  */
 
+ class SectionView {
+   questions: Array<Question> = [];
+   name: string = '';
+   expanded: boolean = false;
+
+   constructor(questions: Array<Question>, name: string) {
+     this.questions = questions;
+     this.name = name;
+   }
+ }
+
 @IonicPage()
 @Component({
   selector: 'page-questions',
@@ -23,7 +34,7 @@ import { Section } from '../../models/section';
 export class QuestionsPage implements OnInit{
   book: Book;
   allQuestions: Array<Question> = [];
-  sectionQuestions: Array<Array<Question>> = [];
+  sections: Array<SectionView> = [];
   addQuestion: Boolean = false;
   newQuestion: Question = new Question();
   editAnswer: boolean = false;
@@ -50,8 +61,9 @@ export class QuestionsPage implements OnInit{
         };
         return res;}, []);
       section_names.forEach(name => {
-        let sectionQuestions = this.allQuestions.filter(q => q.section.name == name);
-        this.sectionQuestions.push(sectionQuestions);
+        let questions = this.allQuestions.filter(q => q.section.name == name);
+        let sectionQuestions = new SectionView(questions, questions[0].section.name);
+        this.sections.push(sectionQuestions);
       })
       console.log(this.allQuestions);
     })

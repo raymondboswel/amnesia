@@ -26,29 +26,36 @@
       <button ion-button style="float: right" (click)="addQuestion=false">Cancel</button>
     </ion-card-content> 
   </ion-card>
-  <div *ngFor="let questions of sectionQuestions">
-    <ion-card *ngFor="let question of questions; let i = index"> 
-      <ion-card-header>
-        {{question.section.name}} #{{i + 1}}
-      </ion-card-header>
-      <ion-card-content>
-        <div>{{question.text}}</div>
-        <a *ngIf="!question.showAnswer" (click)="question.showAnswer=true">View answer</a>
-        <a *ngIf="question.showAnswer" (click)="question.showAnswer=false">Hide answer</a>
-        <div *ngIf="question.showAnswer">
-          <div style="text-align: right">
-            <ion-icon *ngIf="!editAnswer" (click)="editAnswer=!editAnswer" name="create" ></ion-icon>
-            <ion-icon *ngIf="editAnswer" name="checkmark" (click)="updateAnswer(question)" ></ion-icon>
+
+  <div *ngFor="let section of sections">
+    <div style="display: flex; justify-content: space-between" (click)="section.expanded=!section.expanded">
+      <H2>{{section.name}}</H2>
+      <ion-icon class="pull-right"  name="arrow-down"></ion-icon>
+    </div>
+    <div class='expand-wrapper' [class.collapsed]="!section.expanded">
+      <ion-card *ngFor="let question of section.questions; let i = index"> 
+        <ion-card-header>
+          {{question.section.name}} #{{i + 1}}
+        </ion-card-header>
+        <ion-card-content>
+          <div>{{question.text}}</div>
+          <a *ngIf="!question.showAnswer" (click)="question.showAnswer=true">View answer</a>
+          <a *ngIf="question.showAnswer" (click)="question.showAnswer=false">Hide answer</a>
+          <div *ngIf="question.showAnswer">
+            <div style="text-align: right">
+              <ion-icon *ngIf="!editAnswer" (click)="editAnswer=!editAnswer" name="create" ></ion-icon>
+              <ion-icon *ngIf="editAnswer" name="checkmark" (click)="updateAnswer(question)" ></ion-icon>
+            </div>
+            <p *ngIf="!editAnswer" >{{question.answers[0]?.answer}}</p>
+            <div>
+            <ion-item>
+              <ion-textarea class="answer-textarea" placeholder="Answer" *ngIf="editAnswer" [(ngModel)]="question.answers[0].answer"></ion-textarea>
+            </ion-item>
+            </div>
           </div>
-          <p *ngIf="!editAnswer" >{{question.answers[0]?.answer}}</p>
-          <div>
-          <ion-item>
-            <ion-textarea class="answer-textarea" placeholder="Answer" *ngIf="editAnswer" [(ngModel)]="question.answers[0].answer"></ion-textarea>
-          </ion-item>
-          </div>
-        </div>
-      </ion-card-content>
-    </ion-card>
+        </ion-card-content>
+      </ion-card>
+    </div>
   </div>
 
 </div>

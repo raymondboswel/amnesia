@@ -6,3 +6,13 @@ page-questions {
     // background-color: #78CECB;
     border: 1px solid #3498DB;
 }
+
+
+.expand-wrapper {
+    transition: 0.2s linear;
+}  
+    
+.collapsed {
+    height: 0 !important;
+    visibility: hidden;
+}
