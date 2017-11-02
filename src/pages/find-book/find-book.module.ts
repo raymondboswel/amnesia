@@ -1,3 +1,4 @@
+import { ComponentsModule } from './../../components/components.module';
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { FindBookPage } from './find-book';
@@ -8,6 +9,7 @@ import { FindBookPage } from './find-book';
   ],
   imports: [
     IonicPageModule.forChild(FindBookPage),
+    ComponentsModule
   ],
 })
 export class FindBookPageModule {}

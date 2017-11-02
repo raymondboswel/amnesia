@@ -38,6 +38,7 @@ import { HttpProvider } from '../providers/http/http';
 
 import { AutoCompleteModule } from 'ionic2-auto-complete';
 import { SectionProvider } from '../providers/section/section';
+import { GoogleBookSearchProvider } from '../providers/google-book-search/google-book-search';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { SectionProvider } from '../providers/section/section';
     AnswerProvider,
     HttpProvider,
     SectionProvider,
+    GoogleBookSearchProvider,
     
   ]
 })
