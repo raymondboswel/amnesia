@@ -1,5 +1,5 @@
 <ng-template #book let-attrs="attrs">
-  <span [innerHTML]="attrs.data.title + ', ' + attrs.data.authors "></span>
+  <span [innerHTML]="attrs.data"></span>
 </ng-template>
 <ion-auto-complete (itemSelected)="selectBook($event)"
                    [template]="book"
