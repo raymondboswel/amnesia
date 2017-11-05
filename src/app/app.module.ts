@@ -1,3 +1,4 @@
+import { ComponentsModule } from './../components/components.module';
 import { MyBooksPageModule } from './../pages/my-books/my-books.module';
 import { QuestionsPageModule } from './../pages/questions/questions.module';
 import { NotesPageModule } from './../pages/notes/notes.module';
@@ -50,6 +51,7 @@ import { GoogleBookSearchProvider } from '../providers/google-book-search/google
     IonicModule.forRoot(MyApp),
     HttpModule,
     BrowserModule,
+    ComponentsModule,
     BookPageModule,
     FindBookPageModule,
     LoginPageModule,
@@ -78,7 +80,7 @@ import { GoogleBookSearchProvider } from '../providers/google-book-search/google
   providers: [
     StatusBar,
     SplashScreen,
-    BookService,    
+    BookService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthService,
     QuestionProvider,
@@ -86,7 +88,7 @@ import { GoogleBookSearchProvider } from '../providers/google-book-search/google
     HttpProvider,
     SectionProvider,
     GoogleBookSearchProvider,
-    
+
   ]
 })
 export class AppModule {}

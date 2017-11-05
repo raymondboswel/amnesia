@@ -18,23 +18,29 @@ export class GoogleBookSearchProvider {
   }
 
   getResults(keyword:string): Observable<string[]> {
-    // return this.http.get(`https://www.googleapis.com/books/v1/volumes?q=${keyword}`).map(
     return this.http.get(`https://suggestqueries.google.com/complete/search?client=books&q=${keyword}&ds=bo`).map(
       res => {
         let body = res.text();
         let results = this.getSuggestions(body);
 
-        // console.log(result);
-        // let bookSearchResults = resultItems.map(item => {
-        //   let bookSearchResult: BookSearchResult = new BookSearchResult();
-        //   console.log(item);
-        //   bookSearchResult.authors = item.volumeInfo.authors;
-        //   bookSearchResult.title = item.volumeInfo.title;
-        //   return bookSearchResult;
-        // })
+
         return results;
       }
     );
+  }
+
+  getBookSearchResults(query: string): Observable<BookSearchResult[]> {
+    return this.http.get(`https://www.googleapis.com/books/v1/volumes?q=${query}`)
+      .map(res => {
+        let resultItems = res.json();
+        let bookSearchResults: BookSearchResult[] = resultItems.map(item => {
+          let bookSearchResult: BookSearchResult = new BookSearchResult();
+          bookSearchResult.authors = item.volumeInfo.authors;
+          bookSearchResult.title = item.volumeInfo.title;
+          return bookSearchResult;
+        });
+        return bookSearchResults;
+      });
   }
 
   getSuggestions(rawResult: string): string[] {

@@ -1,3 +1,4 @@
+import { GoogleBookSearchProvider } from './../../providers/google-book-search/google-book-search';
 import { BookSearchResult } from './../../models/book-search-result';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Nav } from 'ionic-angular';
@@ -26,9 +27,14 @@ export class FindBookPage {
   @ViewChild(Nav) nav: Nav;
   search = '';
   myBooks: Array<BookView>;
+  searchResults: BookSearchResult[];
   books: Array<BookView> = [];
   filteredBooks: Array<BookView> = [];
-  constructor(public navCtrl: NavController, public navParams: NavParams, private bookService: BookService, private authService: AuthService) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public bookService: BookService,
+              public authService: AuthService,
+              public googleBookSearchProvider: GoogleBookSearchProvider) {
 
   }
 
@@ -58,8 +64,10 @@ export class FindBookPage {
     });
   }
 
-  getBookInfo(bookSearchResult: BookSearchResult) {
-
+  performBookSearch(query: string) {
+    this.googleBookSearchProvider.getBookSearchResults(query).subscribe(res => {
+      this.searchResults = res;
+    });
   }
 
   filterBooks() {

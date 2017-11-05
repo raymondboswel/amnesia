@@ -15,7 +15,8 @@
 
 
 <ion-content padding>
-  <g-books-search (onBookSelected)="getBookInfo($event)"></g-books-search>
+  <g-books-search (onBookSelected)="performBookSearch($event)"></g-books-search>
+  <g-books-list [books]="searchResults"></g-books-list>
   <button ion-button style="float: right" (click)="addNewBook()">Add new book</button>
   <ion-searchbar [(ngModel)]="search" (ionInput)="filterBooks($event)"></ion-searchbar>
   <ion-list>
