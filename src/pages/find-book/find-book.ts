@@ -1,3 +1,4 @@
+import { BookSearchResult } from './../../models/book-search-result';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Nav } from 'ionic-angular';
 import { Book } from '../../models/book';
@@ -28,33 +29,37 @@ export class FindBookPage {
   books: Array<BookView> = [];
   filteredBooks: Array<BookView> = [];
   constructor(public navCtrl: NavController, public navParams: NavParams, private bookService: BookService, private authService: AuthService) {
-    
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FindBookPage');
-    
+
     this.bookService.getMyBooks(this.authService.currentUser).subscribe((res: Array<BookView>) => {
       this.myBooks = res;
       console.log(this.myBooks);
-      this.bookService.getTop10Books().subscribe((res: Array<BookView>) => {                
+      this.bookService.getTop10Books().subscribe((res: Array<BookView>) => {
         this.books = res.map(b => {
           if (this.myBooks.find(myBook => myBook.id == b.id)) {
             b.inMyBooks = true;
             console.log(b);
-            
-          } else {          
-          }; 
+
+          } else {
+          };
           if (b.authors) {
-            b.authorsString = b.authors.reduce((res, author, i) => { return res +  author.surname + ", " + author.name[0] + "; "}, "");            
+            b.authorsString = b.authors.reduce((res, author, i) => { return res +  author.surname + ", " + author.name[0] + "; "}, "");
           } else {
             b.authorsString = "";
           }
-          return b;               
+          return b;
         });
-        console.log(this.books);        
+        console.log(this.books);
       });
     });
+  }
+
+  getBookInfo(bookSearchResult: BookSearchResult) {
+
   }
 
   filterBooks() {
@@ -78,7 +83,7 @@ export class FindBookPage {
           return b;
         }
       })
-    });  
+    });
   }
 
     removeFromMyBooks(book: Book) {
@@ -91,7 +96,7 @@ export class FindBookPage {
           return b;
         }
       })
-    });  
+    });
   }
 
 }

@@ -17,20 +17,31 @@ export class GoogleBookSearchProvider {
     console.log('Hello GoogleBookSearchProvider Provider');
   }
 
-  getResults(keyword:string): Observable<BookSearchResult[]> {
-    return this.http.get(`https://www.googleapis.com/books/v1/volumes?q=${keyword}`).map(
+  getResults(keyword:string): Observable<string[]> {
+    // return this.http.get(`https://www.googleapis.com/books/v1/volumes?q=${keyword}`).map(
+    return this.http.get(`https://suggestqueries.google.com/complete/search?client=books&q=${keyword}&ds=bo`).map(
       res => {
-        let resultItems = res.json().items;
-        let bookSearchResults = resultItems.map(item => {
-          let bookSearchResult: BookSearchResult = new BookSearchResult();
-          console.log(item);
-          bookSearchResult.authors = item.volumeInfo.authors;
-          bookSearchResult.title = item.volumeInfo.title;
-          return bookSearchResult;
-        })
-        return bookSearchResults;
+        let body = res.text();
+        let results = this.getSuggestions(body);
+
+        // console.log(result);
+        // let bookSearchResults = resultItems.map(item => {
+        //   let bookSearchResult: BookSearchResult = new BookSearchResult();
+        //   console.log(item);
+        //   bookSearchResult.authors = item.volumeInfo.authors;
+        //   bookSearchResult.title = item.volumeInfo.title;
+        //   return bookSearchResult;
+        // })
+        return results;
       }
     );
   }
+
+  getSuggestions(rawResult: string): string[] {
+    let arrayString =  rawResult.substring(rawResult.indexOf("(")+1, rawResult.lastIndexOf(")"));
+    let array = JSON.parse(arrayString);
+    return array[1].map(arr => arr[0]);
+  }
+
 
 }
