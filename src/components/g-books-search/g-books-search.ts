@@ -1,6 +1,6 @@
 import { BookSearchResult } from './../../models/book-search-result';
 import { GoogleBookSearchProvider } from './../../providers/google-book-search/google-book-search';
-import { Component, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { AuthorAutocompleteService } from '../../pages/new-book/author-autocomplete.service';
 
 
@@ -18,17 +18,16 @@ import { AuthorAutocompleteService } from '../../pages/new-book/author-autocompl
 export class GBooksSearchComponent {
 
   text: string;
-  onBookSelected: EventEmitter<BookSearchResult>;
+  @Output() onBookSelected: EventEmitter<string> = new EventEmitter<string>();;
 
   constructor(public googleBookSearchProvider: GoogleBookSearchProvider) {
     console.log('Hello GBooksSearchComponent Component');
     this.text = 'Hello World';
-    this.onBookSelected = new EventEmitter<BookSearchResult>();
   }
 
-  selectBook(selectedBook: BookSearchResult) {
-    //#Heideisdiebestemeisieindiehelewereldooitvirewigenaltyd
+  selectBook(selectedBook: string) {
     this.onBookSelected.emit(selectedBook);
+    console.log("book selected: " + selectedBook);
   }
 
 }

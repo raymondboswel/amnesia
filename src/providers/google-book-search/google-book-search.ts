@@ -1,8 +1,9 @@
 import {  BookSearchResult } from './../../models/book-search-result';
 import { Observable } from 'rxjs/Rx';
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { EnvVariables } from '../../app/environment-variables/environment-variables.token';
 
 /*
   Generated class for the GoogleBookSearchProvider provider.
@@ -13,12 +14,12 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class GoogleBookSearchProvider {
 
-  constructor(public http: Http) {
+  constructor(public http: Http, @Inject(EnvVariables) public envVariables) {
     console.log('Hello GoogleBookSearchProvider Provider');
   }
 
   getResults(keyword:string): Observable<string[]> {
-    return this.http.get(`https://suggestqueries.google.com/complete/search?client=books&q=${keyword}&ds=bo`).map(
+    return this.http.get(`${this.envVariables.googleSearchEndPoint}/complete/search?client=books&q=${keyword}&ds=bo`).map(
       res => {
         let body = res.text();
         let results = this.getSuggestions(body);
@@ -32,11 +33,14 @@ export class GoogleBookSearchProvider {
   getBookSearchResults(query: string): Observable<BookSearchResult[]> {
     return this.http.get(`https://www.googleapis.com/books/v1/volumes?q=${query}`)
       .map(res => {
-        let resultItems = res.json();
-        let bookSearchResults: BookSearchResult[] = resultItems.map(item => {
+        let resultJson = res.json();
+        console.log(resultJson);
+        let bookSearchResults: BookSearchResult[] = resultJson.items.map(item => {
           let bookSearchResult: BookSearchResult = new BookSearchResult();
           bookSearchResult.authors = item.volumeInfo.authors;
           bookSearchResult.title = item.volumeInfo.title;
+          bookSearchResult.thumbnailUrl = item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail : "https://www.google.com/googlebooks/images/no_cover_thumb.gif";
+          bookSearchResult.id = item.id;
           return bookSearchResult;
         });
         return bookSearchResults;

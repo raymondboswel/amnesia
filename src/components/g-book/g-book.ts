@@ -1,5 +1,8 @@
+import { BookService } from './../../services/book.service';
+import { Observable } from 'rxjs/Rx';
 import { BookSearchResult } from './../../models/book-search-result';
 import { Component, Input } from '@angular/core';
+import { Book } from '../../models/book';
 
 /**
  * Generated class for the GBookComponent component.
@@ -15,9 +18,15 @@ export class GBookComponent {
   @Input() book: BookSearchResult;
   text: string;
 
-  constructor() {
+  constructor(public bookService: BookService) {
     console.log('Hello GBookComponent Component');
     this.text = 'Hello World';
+  }
+
+  addBookToProfile(bookSearchResult: BookSearchResult) {
+    console.log("Adding book to profile: ");
+    console.log(bookSearchResult);
+
   }
 
 }

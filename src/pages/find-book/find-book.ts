@@ -65,7 +65,9 @@ export class FindBookPage {
   }
 
   performBookSearch(query: string) {
+    console.log("performing book search query");
     this.googleBookSearchProvider.getBookSearchResults(query).subscribe(res => {
+      console.log(res);
       this.searchResults = res;
     });
   }
