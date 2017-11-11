@@ -4,5 +4,11 @@
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "proxies": [
+    {
+      "path": "/suggestqueries.google.com",
+      "proxyUrl": "https://suggestqueries.google.com"
+    }
+  ]
 }
