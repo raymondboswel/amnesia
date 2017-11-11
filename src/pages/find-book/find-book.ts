@@ -14,7 +14,7 @@ import { AuthService } from '../../providers/auth-service/auth-service';
  * on Ionic pages and navigation.
  */
 
- class BookView extends Book {
+ class BookView extends BookSearchResult {
    authorsString: string;
  }
 
@@ -26,8 +26,8 @@ import { AuthService } from '../../providers/auth-service/auth-service';
 export class FindBookPage {
   @ViewChild(Nav) nav: Nav;
   search = '';
-  myBooks: Array<BookView>;
-  searchResults: BookSearchResult[];
+  myBooks: BookSearchResult[] = [];
+  searchResults: BookSearchResult[] = [];
   books: Array<BookView> = [];
   filteredBooks: Array<BookView> = [];
   constructor(public navCtrl: NavController,
@@ -40,28 +40,7 @@ export class FindBookPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FindBookPage');
-
-    this.bookService.getMyBooks(this.authService.currentUser).subscribe((res: Array<BookView>) => {
-      this.myBooks = res;
-      console.log(this.myBooks);
-      this.bookService.getTop10Books().subscribe((res: Array<BookView>) => {
-        this.books = res.map(b => {
-          if (this.myBooks.find(myBook => myBook.id == b.id)) {
-            b.inMyBooks = true;
-            console.log(b);
-
-          } else {
-          };
-          if (b.authors) {
-            b.authorsString = b.authors.reduce((res, author, i) => { return res +  author.surname + ", " + author.name[0] + "; "}, "");
-          } else {
-            b.authorsString = "";
-          }
-          return b;
-        });
-        console.log(this.books);
-      });
-    });
+    this.bookService.getMyBooks().subscribe(res => this.myBooks = res);
   }
 
   performBookSearch(query: string) {
@@ -83,29 +62,19 @@ export class FindBookPage {
     this.navCtrl.push(NewBookPage);
   }
 
-  addToMyBooks(book: Book) {
-    this.bookService.addToMyBooks(book, this.authService.currentUser).subscribe(res => {
-      this.books = this.books.map(b => {
-        if (b.id == book.id) {
-          b.inMyBooks = true;
-          return b;
-        } else {
-          return b;
-        }
-      })
+  addToMyBooks(book: BookSearchResult) {
+    this.bookService.addGBookToMyBooks(book).subscribe((res: BookSearchResult) => {
+      this.myBooks = this.myBooks.concat(res);
+      console.log("Added result to my books: ");
+      console.log(this.myBooks);
     });
   }
 
-    removeFromMyBooks(book: Book) {
-    this.bookService.removeFromMyBooks(book, this.authService.currentUser).subscribe(res => {
-      this.books.map(b => {
-        if (b.id == book.id) {
-          b.inMyBooks = false;
-          return b;
-        } else {
-          return b;
-        }
-      })
+  removeFromMyBooks(book: BookSearchResult) {
+    console.log("Removing book:")
+    console.log(book);
+    this.bookService.removeFromMyBooks(book).subscribe(res => {
+      this.myBooks = this.myBooks.filter(b => book.id != b.id);
     });
   }
 

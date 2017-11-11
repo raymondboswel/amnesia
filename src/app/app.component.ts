@@ -26,7 +26,7 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'Find a book', component: FindBookPage },
-      { title: 'My Books', component: MyBooksPage},
+      { title: 'My Library', component: MyBooksPage},
       { title: 'Log out', component: 'Logout'}
     ];
 

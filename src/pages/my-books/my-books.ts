@@ -1,3 +1,4 @@
+import { BookSearchResult } from './../../models/book-search-result';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Book } from '../../models/book';
@@ -17,14 +18,14 @@ import { AuthService } from '../../providers/auth-service/auth-service';
   templateUrl: 'my-books.html',
 })
 export class MyBooksPage {
-  books: Array<Book> = [];
+  books: Array<BookSearchResult> = [];
   constructor(private authService: AuthService, public navCtrl: NavController, public navParams: NavParams, private bookService: BookService) {
 
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MyBooksPage');
-    this.bookService.getMyBooks(this.authService.currentUser).subscribe(res => {
+    this.bookService.getMyBooks().subscribe(res => {
       this.books = res;
     })
   }

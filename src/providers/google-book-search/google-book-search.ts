@@ -36,12 +36,14 @@ export class GoogleBookSearchProvider {
         let resultJson = res.json();
         console.log(resultJson);
         let bookSearchResults: BookSearchResult[] = resultJson.items.map(item => {
-          let bookSearchResult: BookSearchResult = new BookSearchResult();
-          bookSearchResult.authors = item.volumeInfo.authors;
-          bookSearchResult.title = item.volumeInfo.title;
-          bookSearchResult.thumbnailUrl = item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail : "https://www.google.com/googlebooks/images/no_cover_thumb.gif";
-          bookSearchResult.subtitle = item.volumeInfo.subtitle;
-          bookSearchResult.id = item.id;
+        let bookSearchResult: BookSearchResult = new BookSearchResult(
+          item.volumeInfo.title,
+          item.volumeInfo.subtitle,
+          item.volumeInfo.authors,
+          item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail : "https://www.google.com/googlebooks/images/no_cover_thumb.gif",
+          "",
+          item.id
+        );
           return bookSearchResult;
         });
         return bookSearchResults;

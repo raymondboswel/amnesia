@@ -1,5 +1,9 @@
 <ion-content padding>
   <ion-list>
-    <g-book *ngFor="let book of books" [book]="book"></g-book>
+    <g-book *ngFor="let book of enrichedBooks"
+            [inLibrary]="book.inLibrary"
+            [book]="book.book"
+            (onBookSelected)="onBookSelected.emit($event)"
+            (onBookRemoved)="onBookRemoved.emit($event)"></g-book>
   </ion-list>
 </ion-content>

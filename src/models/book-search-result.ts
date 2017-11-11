@@ -1,8 +1,12 @@
 export class BookSearchResult {
-  title: string;
-  subtitle: string;
-  authors: string[];
-  thumbnailUrl: string;
-  id: string;
+  constructor(
+  public title: string,
+  public subtitle: string,
+  public authors: string[],
+  public cover_url: string,
+  public id: string,
+  public google_id: string) {
+
+  }
 }
 

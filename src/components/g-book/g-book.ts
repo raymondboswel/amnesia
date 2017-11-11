@@ -1,7 +1,7 @@
 import { BookService } from './../../services/book.service';
 import { Observable } from 'rxjs/Rx';
 import { BookSearchResult } from './../../models/book-search-result';
-import { Component, Input } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { Book } from '../../models/book';
 
 /**
@@ -16,6 +16,10 @@ import { Book } from '../../models/book';
 })
 export class GBookComponent {
   @Input() book: BookSearchResult;
+  @Input() inLibrary: boolean;
+  @Output() onBookSelected: EventEmitter<BookSearchResult> = new EventEmitter<BookSearchResult>();
+  @Output() onBookRemoved: EventEmitter<BookSearchResult> = new EventEmitter<BookSearchResult>();
+
   text: string;
 
   constructor(public bookService: BookService) {
