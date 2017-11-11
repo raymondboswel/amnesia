@@ -25,7 +25,7 @@ export class GBookComponent {
 
   addBookToProfile(bookSearchResult: BookSearchResult) {
     console.log("Adding book to profile: ");
-    console.log(bookSearchResult);
+    console.log(this.book);
 
   }
 

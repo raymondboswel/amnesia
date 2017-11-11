@@ -40,6 +40,7 @@ export class GoogleBookSearchProvider {
           bookSearchResult.authors = item.volumeInfo.authors;
           bookSearchResult.title = item.volumeInfo.title;
           bookSearchResult.thumbnailUrl = item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail : "https://www.google.com/googlebooks/images/no_cover_thumb.gif";
+          bookSearchResult.subtitle = item.volumeInfo.subtitle;
           bookSearchResult.id = item.id;
           return bookSearchResult;
         });

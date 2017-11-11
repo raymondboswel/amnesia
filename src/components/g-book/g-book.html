@@ -1,8 +1,8 @@
-<ion-item>
+<ion-item >
   <ion-thumbnail item-start>
     <img [src]="book.thumbnailUrl">
   </ion-thumbnail>
   <h2>{{book.title}}</h2>
   <p>{{book.authors}}</p>
-  <button ion-button clear item-end (clicked)="addBookToProfile(book)">Add</button>
+  <button ion-button clear item-end (click)="addBookToProfile()">Add</button>
 </ion-item>
