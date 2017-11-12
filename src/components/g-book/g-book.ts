@@ -15,10 +15,10 @@ import { Book } from '../../models/book';
   templateUrl: 'g-book.html'
 })
 export class GBookComponent {
-  @Input() book: BookSearchResult;
+  @Input() book: Book;
   @Input() inLibrary: boolean;
-  @Output() onBookSelected: EventEmitter<BookSearchResult> = new EventEmitter<BookSearchResult>();
-  @Output() onBookRemoved: EventEmitter<BookSearchResult> = new EventEmitter<BookSearchResult>();
+  @Output() onBookSelected: EventEmitter<Book> = new EventEmitter<Book>();
+  @Output() onBookRemoved: EventEmitter<Book> = new EventEmitter<Book>();
 
   text: string;
 

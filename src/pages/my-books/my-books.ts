@@ -18,7 +18,7 @@ import { AuthService } from '../../providers/auth-service/auth-service';
   templateUrl: 'my-books.html',
 })
 export class MyBooksPage {
-  books: Array<BookSearchResult> = [];
+  books: Book[] = [];
   constructor(private authService: AuthService, public navCtrl: NavController, public navParams: NavParams, private bookService: BookService) {
 
   }

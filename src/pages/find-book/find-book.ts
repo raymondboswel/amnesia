@@ -26,7 +26,7 @@ import { AuthService } from '../../providers/auth-service/auth-service';
 export class FindBookPage {
   @ViewChild(Nav) nav: Nav;
   search = '';
-  myBooks: BookSearchResult[] = [];
+  myBooks: Book[] = [];
   searchResults: BookSearchResult[] = [];
   books: Array<BookView> = [];
   filteredBooks: Array<BookView> = [];
@@ -62,18 +62,20 @@ export class FindBookPage {
     this.navCtrl.push(NewBookPage);
   }
 
-  addToMyBooks(book: BookSearchResult) {
-    this.bookService.addGBookToMyBooks(book).subscribe((res: BookSearchResult) => {
+  addToMyBooks(book: Book) {
+    console.log("Adding book");
+    console.log(book);
+    this.bookService.addGBookToMyBooks(book.bookSearchResult).subscribe((res: Book) => {
       this.myBooks = this.myBooks.concat(res);
       console.log("Added result to my books: ");
       console.log(this.myBooks);
     });
   }
 
-  removeFromMyBooks(book: BookSearchResult) {
+  removeFromMyBooks(book: Book) {
     console.log("Removing book:")
     console.log(book);
-    this.bookService.removeFromMyBooks(book).subscribe(res => {
+    this.bookService.removeFromMyBooks(book.id).subscribe(res => {
       this.myBooks = this.myBooks.filter(b => book.id != b.id);
     });
   }

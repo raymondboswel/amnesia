@@ -1,3 +1,4 @@
+import { BookSearchResult } from './../../models/book-search-result';
 import { SectionProvider } from './../../providers/section/section';
 import { Section } from './../../models/section';
 import { Component } from '@angular/core';
@@ -20,10 +21,10 @@ export class OverviewPage {
   editSummary: boolean = false;
   addSection: boolean = false;
   newSection: Section = new Section();
-  book: Book;  
+  book: Book;
   newSummary: string = '';
-  constructor(public navCtrl: NavController, 
-              public navParams: NavParams, 
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
               private bookService: BookService,
               private sectionProvider: SectionProvider) {
     this.book = this.bookService.selectedBook;
@@ -31,7 +32,7 @@ export class OverviewPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad OverviewPage');
-    
+
   }
 
   updateSummary() {

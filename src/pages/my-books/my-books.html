@@ -12,14 +12,16 @@
     <ion-title>My books</ion-title>
   </ion-navbar>
 
-</ion-header> 
+</ion-header>
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let book of books" (click)="gotoBook(book)">    
-      <h2>{{book.title}}</h2>
-      <h3>{{book.author}}</h3>
-      <p>{{book.questionsCompleted}} questions completed</p>
+    <ion-item *ngFor="let book of books" (click)="gotoBook(book)">
+      <ion-thumbnail item-start>
+        <img [src]="book.bookSearchResult.cover_url">
+      </ion-thumbnail>
+      <h2>{{book.bookSearchResult.title}}</h2>
+      <h3>{{book.bookSearchResult.authors}}</h3>
     </ion-item>
   </ion-list>
 </ion-content>

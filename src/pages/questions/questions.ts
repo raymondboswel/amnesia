@@ -1,3 +1,4 @@
+import { BookSearchResult } from './../../models/book-search-result';
 import { Book } from './../../models/book';
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -38,8 +39,8 @@ export class QuestionsPage implements OnInit{
   addQuestion: Boolean = false;
   newQuestion: Question = new Question();
   editAnswer: boolean = false;
-  constructor(public navCtrl: NavController, public navParams: NavParams, 
-              private bookService: BookService, 
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+              private bookService: BookService,
               private questionProvider: QuestionProvider,
               private answerProvider: AnswerProvider) {
     this.book = this.bookService.selectedBook;
@@ -50,10 +51,10 @@ export class QuestionsPage implements OnInit{
     this.questionProvider.getBookQuestions(this.bookService.selectedBook).subscribe(res => {
       this.allQuestions = res.map(q => {
         if(q.answers.length == 0) {
-          q.answers.push(new Answer());          
+          q.answers.push(new Answer());
         };
         return q;
-      });    
+      });
       // this.sections = this.questions.
       let section_names = this.allQuestions.reduce((res: Array<string>, q, i) => {
         if (!res.some(r => r == q.section.name)) {

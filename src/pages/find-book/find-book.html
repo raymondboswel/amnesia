@@ -16,7 +16,7 @@
 
 <ion-content padding>
   <g-books-search (onBookSelected)="performBookSearch($event)"></g-books-search>
-  <g-books-list [books]="searchResults"
+  <g-books-list [bookSearchResults]="searchResults"
                 [myBooks]="myBooks"
                 (onBookSelected)="addToMyBooks($event)"
                 (onBookRemoved)="removeFromMyBooks($event)">

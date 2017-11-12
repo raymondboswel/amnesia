@@ -41,13 +41,24 @@ export class GoogleBookSearchProvider {
           item.volumeInfo.subtitle,
           item.volumeInfo.authors,
           item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail : "https://www.google.com/googlebooks/images/no_cover_thumb.gif",
-          "",
           item.id
         );
           return bookSearchResult;
         });
         return bookSearchResults;
       });
+  }
+
+  getBookInformation(google_id: string): Observable<BookSearchResult> {
+    return this.http.get(`https://www.googleapis.com/books/v1/volumes/${google_id}`).map(res => {
+      let item = res.json();
+      let result = new BookSearchResult(item.volumeInfo.title,
+        item.volumeInfo.subtitle,
+        item.volumeInfo.authors,
+        item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail : "https://www.google.com/googlebooks/images/no_cover_thumb.gif",
+        item.id);
+      return result;
+    })
   }
 
   getSuggestions(rawResult: string): string[] {

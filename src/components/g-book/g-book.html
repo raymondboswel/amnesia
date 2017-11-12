@@ -1,9 +1,9 @@
 <ion-item >
   <ion-thumbnail item-start>
-    <img [src]="book.cover_url">
+    <img [src]="book.bookSearchResult.cover_url">
   </ion-thumbnail>
-  <h2>{{book.title}}</h2>
-  <p>{{book.authors}}</p>
+  <h2>{{book.bookSearchResult.title}}</h2>
+  <p>{{book.bookSearchResult.authors}}</p>
   <button *ngIf="!inLibrary" ion-button clear item-end (click)="onBookSelected.emit(book)">Add</button>
   <button *ngIf="inLibrary" ion-button clear item-end (click)="onBookRemoved.emit(book)">Remove</button>
 </ion-item>

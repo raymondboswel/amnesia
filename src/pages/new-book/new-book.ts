@@ -25,9 +25,9 @@ export class NewBookPage {
   authors: Array<Author> = [];
   newAuthor: Author = new Author();
 
-  constructor(private bookService: BookService, 
-              public navCtrl: NavController, 
-              public navParams: NavParams, 
+  constructor(private bookService: BookService,
+              public navCtrl: NavController,
+              public navParams: NavParams,
               public formBuilder: FormBuilder,
               public authorAutocompleteService: AuthorAutocompleteService ) {
     this.bookForm = this.formBuilder.group({
@@ -44,10 +44,10 @@ export class NewBookPage {
     console.log(this.bookForm.value)
     let title = this.bookForm.controls['title'].value;
     let subtitle = this.bookForm.controls['subtitle'].value;
-    let book: Book = new Book(title, subtitle, this.authors, 0);
-    this.bookService.createBook(book).subscribe(res => {
-      this.navCtrl.pop();
-    });
+    // let book: Book = new Book(title, subtitle, this.authors, 0);
+    // this.bookService.createBook(book).subscribe(res => {
+    //   this.navCtrl.pop();
+    // });
   }
 
   appendAuthor(author) {

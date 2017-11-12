@@ -31,18 +31,18 @@ export class BookService {
         return response.map(res => res.json().data);
     }
 
-    addGBookToMyBooks(bookSearchResult: BookSearchResult): Observable<BookSearchResult> {
+    addGBookToMyBooks(bookSearchResult: BookSearchResult): Observable<Book> {
       let user_id = this.authService.currentUser.id;
       let book: any = bookSearchResult;
       book.user_id = user_id;
       let body = {book: book};
       return this.http.post("api/books", body).map(res => {
         let result = res.json().data;
-        return new BookSearchResult(result.title,
+        return new Book(result.id, result.title,
                                     result.subtitle,
                                     [],
                                     result.cover_url,
-                                    result.id,
+                                    0,
                                     result.google_id);
       });
     }
@@ -62,28 +62,20 @@ export class BookService {
         });
     }
 
-    removeFromMyBooks(book: BookSearchResult) {
-      let book_id = book.id;
+    removeFromMyBooks(book_id: string) {
       let response = this.http.delete(`api/books/${book_id}`);
       return response.map(res => {
           return res.json();
       });
     }
 
-    getMyBooks(): Observable<BookSearchResult[]> {
+    getMyBooks(): Observable<Book[]> {
       let user_id = this.authService.currentUser.id;
-      let response = this.http.get(`api/books?user_id=${user_id}`);
-      return response.map(res => {
+      return this.http.get(`api/books?user_id=${user_id}`)
+        .map(res => {
           let result = res.json().data;
-          return result.map(bsr => {
-            return new BookSearchResult(
-              bsr.title,
-              bsr.subtitle,
-              [],
-              bsr.cover_url,
-              bsr.id,
-              bsr.google_id
-            );
+          return result.map(r => {
+            return new Book(r.id, r.title, r.subtitle, r.authors, r.cover_url, 0, r.google_id);
           }
       );
     });

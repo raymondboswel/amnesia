@@ -1,5 +1,6 @@
 import { BookSearchResult } from './../../models/book-search-result';
 import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Book } from '../../models/book';
 
 /**
  * Generated class for the GBooksListComponent component.
@@ -8,7 +9,7 @@ import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChange
  * for more info on Angular Components.
  */
 class BookView {
-  constructor(public book: BookSearchResult,
+  constructor(public book: Book,
               public inLibrary: boolean) {
   }
 }
@@ -18,11 +19,11 @@ class BookView {
   templateUrl: 'g-books-list.html'
 })
 export class GBooksListComponent implements OnInit, OnChanges {
-  @Input() books: BookSearchResult[] = [];
-  @Input() myBooks: BookSearchResult[] = [];
+  @Input() bookSearchResults: BookSearchResult[] = [];
+  @Input() myBooks: Book[] = [];
   enrichedBooks: BookView[] = [];
-  @Output() onBookSelected: EventEmitter<BookSearchResult> = new EventEmitter<BookSearchResult>();
-  @Output() onBookRemoved: EventEmitter<BookSearchResult> = new EventEmitter<BookSearchResult>();
+  @Output() onBookSelected: EventEmitter<Book> = new EventEmitter<Book>();
+  @Output() onBookRemoved: EventEmitter<Book> = new EventEmitter<Book>();
   text: string;
 
   constructor() {
@@ -31,9 +32,10 @@ export class GBooksListComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.enrichedBooks = this.books.map(book => {
-      let inLibrary = this.books.some(book => this.myBooks.find(myBook => book.google_id == myBook.google_id) != undefined);
-      let bookView = new BookView(book, inLibrary);
+    this.enrichedBooks = this.bookSearchResults.map(book => {
+      let inLibrary = this.bookSearchResults.some(book => this.myBooks.find(myBook =>
+        book.google_id == myBook.bookSearchResult.google_id) != undefined);
+      let bookView = new BookView(Book.getBook(book), inLibrary);
       return bookView;
     });
   };
@@ -41,11 +43,14 @@ export class GBooksListComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     for (let propName in changes) {
       console.log("Got changes.." + propName);
-      if (propName == "books" || propName == "myBooks") {
+      if (propName == "bookSearchResults" || propName == "myBooks") {
         let chng = changes[propName];
-        this.enrichedBooks = this.books.map(book => {
-          let bookView = new BookView(book, false);
-          let myBook = this.myBooks.find(myBook => myBook.google_id == book.google_id);
+        console.log(this.bookSearchResults);
+        this.enrichedBooks = this.bookSearchResults.map(book => {
+          let bookView = new BookView(Book.getBook(book), false);
+          console.log(bookView);
+          console.log(this.myBooks);
+          let myBook = this.myBooks.find(myBook => myBook.bookSearchResult.google_id == book.google_id);
           if(myBook != undefined) {
             bookView.inLibrary = true;
             bookView.book.id = myBook.id;
@@ -54,6 +59,7 @@ export class GBooksListComponent implements OnInit, OnChanges {
         });
       };
     };
+    console.log(this.enrichedBooks);
   }
 
 }
