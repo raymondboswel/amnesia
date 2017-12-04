@@ -1,4 +1,4 @@
-This is a starter template for [Ionic](http://ionicframework.com/docs/) projects.
+Amnesia project. The aim of the project is to provide a convenient way to create flash cards and notes when reading a book.
 
 ## How to use this template
 
